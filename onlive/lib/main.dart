@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'screens/Login-screen.dart';
-import 'screens/onboarding1.dart';
-import 'screens/onboarding2.dart';
-import 'screens/onboarding3.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+import 'Features/Auth/presentation/cubit/auth_cubit.dart';
+import 'injection_container.dart' as di;
+import 'screens/Login-screen.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(const MyApp());
 }
 
@@ -19,7 +22,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => di.sl<AuthCubit>(),
+          )
+        ],
+        child: LoginScreen(),
+      ),
     );
   }
 }

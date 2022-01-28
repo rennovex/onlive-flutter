@@ -15,6 +15,7 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onPressed,
       child: Container(
         constraints: BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
         alignment: Alignment.center,

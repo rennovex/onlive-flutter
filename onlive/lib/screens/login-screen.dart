@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:onlive/Features/Auth/presentation/cubit/auth_cubit.dart';
 import '../constants.dart';
 import '../widgets/gradient_text.dart';
 import '../widgets/login_button.dart';
@@ -37,10 +39,22 @@ class LoginScreen extends StatelessWidget {
           SizedBox(
             height: 100,
           ),
-          LoginButton(
-            image: 'images/google_logo.png',
-            text: 'Sign In with Google',
-            onPressed: () {},
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              if (state is Loading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return LoginButton(
+                image: 'images/google_logo.png',
+                text: 'Sign In with Google',
+                onPressed: () async {
+                  print('button pressed');
+                  context.read<AuthCubit>().login();
+                },
+              );
+            },
           ),
           SizedBox(
             height: 10,

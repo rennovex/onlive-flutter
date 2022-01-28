@@ -5,17 +5,24 @@ import '../../../../core/errors/failures.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  final GoogleSignIn _googleSignIn;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
+  final GoogleSignIn googleSignIn;
 
-  UserRepositoryImpl(this._googleSignIn);
+  UserRepositoryImpl(this.googleSignIn);
   @override
   Future<Either<Failure, NoParams>> postLogin() async {
     try {
-      print('ggogle auth started..');
+      print('google auth started..');
       final response = await _googleSignIn.signIn();
       print(response);
       return Right(NoParams());
     } catch (ex) {
+      print(ex);
       return Left(LoginFailure());
     }
   }
