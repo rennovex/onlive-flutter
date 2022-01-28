@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:onlive/screens/Login-screen.dart';
-import 'package:onlive/screens/onboarding1.dart';
-import 'package:onlive/screens/onboarding2.dart';
-import 'package:onlive/screens/onboarding3.dart';
+import 'screens/Login-screen.dart';
+import 'screens/onboarding1.dart';
+import 'screens/onboarding2.dart';
+import 'screens/onboarding3.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OnBoarding_Third(),
+      home: LoginScreen(),
     );
   }
 }

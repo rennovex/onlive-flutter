@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:onlive/constants.dart';
-import 'package:onlive/widgets/pill_toggle_button.dart';
-import 'package:onlive/widgets/profile_icon_button.dart';
-import 'package:onlive/widgets/gradient_button.dart';
+import '../constants.dart';
+import '../widgets/pill_toggle_button.dart';
+import '../widgets/profile_icon_button.dart';
+import '../widgets/gradient_button.dart';
 import 'package:pixel_perfect/pixel_perfect.dart';
 
 class OnBoarding_First extends StatelessWidget {

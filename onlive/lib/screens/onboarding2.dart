@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:onlive/constants.dart';
-import 'package:onlive/widgets/input_box.dart';
-import 'package:onlive/widgets/gradient_button.dart';
+
+import '../constants.dart';
+import '../widgets/gradient_button.dart';
+import '../widgets/input_box.dart';
 
 class OnBoarding_Second extends StatelessWidget {
   const OnBoarding_Second({Key? key}) : super(key: key);

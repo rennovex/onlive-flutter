@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:onlive/constants.dart';
-import 'package:onlive/widgets/gradient_text.dart';
-import 'package:onlive/widgets/login_button.dart';
+import '../constants.dart';
+import '../widgets/gradient_text.dart';
+import '../widgets/login_button.dart';
 
 class LoginScreen extends StatelessWidget {
   @override

@@ -36,6 +36,14 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.2.0
   pixel_perfect: any
+  dartz: ^0.10.1
+  google_sign_in: ^5.2.3
+  flutter_bloc: ^8.0.1
+  http: ^0.13.4
+  equatable: ^2.0.3
+  get_it: ^7.2.0
+  internet_connection_checker: ^0.0.1+3
+
   
   
 
