@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gradient_text/gradient_text.dart';
 import 'package:onlive/constants.dart';
+import 'package:onlive/widgets/gradient_text.dart';
 import 'package:onlive/widgets/login_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                 gradient: kgradientText,
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
                 textAlign: TextAlign.center),
-          )
+          ),
         ],
       ),
     );
