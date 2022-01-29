@@ -1,4 +1,4 @@
-import 'package:onlive/Features/Registration/data/models/interest_model.dart';
+import '../models/interest_model.dart';
 
 abstract class InterestsRemoteDataSource {
   /// Calls the /api/<>.com/users endpoint.

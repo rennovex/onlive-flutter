@@ -1,6 +1,3 @@
-import '../models/post_model.dart';
-import '../../../../core/errors/exceptions.dart';
-
 abstract class PostsLocalDataSource {
   /// Gets the cached [PostModel] which was gotten the last time
   /// the user had an internet connection.

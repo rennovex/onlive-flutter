@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
-import '../../domain/repositories/user_repository.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../../../../core/errors/failures.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../../../core/errors/failures.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../../domain/repositories/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -18,6 +19,7 @@ class UserRepositoryImpl implements UserRepository {
   Future<Either<Failure, NoParams>> postLogin() async {
     try {
       print('google auth started..');
+
       final response = await _googleSignIn.signIn();
       print(response);
       return Right(NoParams());

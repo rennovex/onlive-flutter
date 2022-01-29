@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class RegUser {
   RegUser({
     this.nickname,
