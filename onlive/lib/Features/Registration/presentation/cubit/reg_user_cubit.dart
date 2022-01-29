@@ -20,7 +20,7 @@ class RegUserCubit extends Cubit<RegUserState> {
   void setPublicProfile(String nickname, String interest) =>
       emit(state.copyWith(nickname: nickname, interest: interest));
 
-  void setImage(String imageUrl, String image) =>
+  void setAvatar(String imageUrl, String image) =>
       emit(state.copyWith(imageUrl: imageUrl, image: image));
 
   void setProfileDetails(

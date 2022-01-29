@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:onlive/Features/Auth/presentation/cubit/auth_cubit.dart';
+import '../Features/Auth/presentation/cubit/auth_cubit.dart';
 import '../constants.dart';
 import '../widgets/gradient_text.dart';
 import '../widgets/login_button.dart';

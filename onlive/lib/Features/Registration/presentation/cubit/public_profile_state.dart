@@ -12,7 +12,7 @@ class Initial extends PublicProfileState {}
 class Loading extends PublicProfileState {}
 
 class Loaded extends PublicProfileState {
-  List<String> interests;
+  List<Interest> interests;
   Loaded({
     required this.interests,
   });
