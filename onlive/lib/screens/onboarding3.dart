@@ -4,6 +4,8 @@ import '../widgets/gradient_button.dart';
 import '../widgets/thick_gradient_card.dart';
 
 class OnBoarding_Third extends StatelessWidget {
+  const OnBoarding_Third({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
