@@ -5,7 +5,7 @@ import 'package:onlive/Utils/Router/app_router.dart';
 // <<<<<<< HEAD
 // import 'package:onlive/Features/Registration/onboarding1.dart';
 // =======
-import 'package:onlive/screens/onboarding1.dart';
+import 'package:onlive/Features/Registration/onboarding1.dart';
 import 'package:onlive/Features/Registration/onboarding3.dart';
 
 import 'Features/Auth/presentation/cubit/auth_cubit.dart';

@@ -61,9 +61,11 @@ class OnBoarding_Third extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              Text(
-                'Once you select your domain, there’s no going back',
-                style: kAlertTextStyle,
+              Center(
+                child: Text(
+                  'Once you select your domain, there’s no going back.',
+                  style: kAlertTextStyle,
+                ),
               )
             ],
           ),

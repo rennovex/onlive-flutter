@@ -24,7 +24,7 @@ class ThickGradientCard extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           gradient: kbuttonGradient,
-          //borderRadius: BorderRadius.circular(80.0),
+          borderRadius: BorderRadius.circular(18.0),
           boxShadow: [
             kLoginButtonBoxShadow,
           ],
@@ -34,6 +34,9 @@ class ThickGradientCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Image.asset(img),
+            SizedBox(
+              width: 15,
+            ),
             Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -41,15 +44,25 @@ class ThickGradientCard extends StatelessWidget {
                 children: [
                   Text(
                     text,
-                    style: kSubHeaderTextStyle,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                      fontSize: 24,
+                      color: Color(0XFFffffff),
+                    ),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Text(
-                      'Interact wity your own campus mates. Who knows who your next anynomous buddy will be?',
-                      style: kAlertTextStyle,
+                      para,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins',
+                        fontSize: 13,
+                        color: Color(0XFFffffff),
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
