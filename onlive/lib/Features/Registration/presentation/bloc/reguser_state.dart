@@ -1,6 +1,8 @@
-part of 'reg_user_cubit.dart';
+part of 'reguser_bloc.dart';
 
-class RegUserState extends Equatable {
+enum PageStatus { Initial, Loading, Loaded, error }
+
+class ReguserState extends Equatable {
   String nickname;
   String interest;
   String imageUrl;
@@ -12,7 +14,12 @@ class RegUserState extends Equatable {
   String domain;
   String college;
 
-  RegUserState({
+  List<Interest> interests;
+
+  PageStatus avatarSelectionPageState;
+  PageStatus collegeSelectionPageState;
+
+  ReguserState({
     required this.nickname,
     required this.interest,
     required this.imageUrl,
@@ -23,13 +30,15 @@ class RegUserState extends Equatable {
     required this.gender,
     required this.domain,
     required this.college,
+    required this.interests,
+    required this.avatarSelectionPageState,
+    required this.collegeSelectionPageState,
   });
 
   @override
-  List<Object> get props =>
-      [nickname, interest, imageUrl, image, fullName, age, email, gender];
+  List<Object> get props => [];
 
-  RegUserState copyWith({
+  ReguserState copyWith({
     String? nickname,
     String? interest,
     String? imageUrl,
@@ -40,8 +49,11 @@ class RegUserState extends Equatable {
     String? gender,
     String? domain,
     String? college,
+    List<Interest>? interests,
+    PageStatus? avatarSelectionPageState,
+    PageStatus? collegeSelectionPageState,
   }) {
-    return RegUserState(
+    return ReguserState(
       nickname: nickname ?? this.nickname,
       interest: interest ?? this.interest,
       imageUrl: imageUrl ?? this.imageUrl,
@@ -52,6 +64,11 @@ class RegUserState extends Equatable {
       gender: gender ?? this.gender,
       domain: domain ?? this.domain,
       college: college ?? this.college,
+      interests: interests ?? this.interests,
+      avatarSelectionPageState:
+          avatarSelectionPageState ?? this.avatarSelectionPageState,
+      collegeSelectionPageState:
+          collegeSelectionPageState ?? this.collegeSelectionPageState,
     );
   }
 }

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlive/Features/Registration/onboarding1.dart';
-import 'package:onlive/Features/Registration/onboarding3.dart';
+import 'package:onlive/Utils/Router/app_router.dart';
+import 'package:onlive/screens/onboarding1.dart';
 
 import 'Features/Auth/presentation/cubit/auth_cubit.dart';
-import 'Features/Registration/onboarding_college_selection.dart';
-import 'Features/Registration/onboarding_completion.dart.dart';
+import 'Features/Registration/presentation/screens/onboarding_avatar_selection_screen.dart';
 import 'injection_container.dart' as di;
-import 'package:onlive/Features/Auth/login-screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,19 +20,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateRoute: di.sl<AppRouter>().onGenerateRoute,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OnBoarding_First(),
-      // MultiBlocProvider(
-      //   providers: [
-      //     BlocProvider(
-      //       create: (context) => di.sl<AuthCubit>(),
-      //     )
-      //   ],
-      //   child: LoginScreen(),
-      // ),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => di.sl<AuthCubit>(),
+          )
+        ],
+        child: OnBoarding_First(),
+      ),
     );
   }
 }

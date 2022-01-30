@@ -7,6 +7,14 @@ const kHeaderTextStyle = TextStyle(
   fontSize: 27,
   color: Color(0XFF494949),
 );
+
+const kActionHeaderTextStyle = TextStyle(
+  fontWeight: FontWeight.w700,
+  fontFamily: 'Poppins',
+  fontSize: 18,
+  color: Color.fromRGBO(46, 45, 45, 1),
+);
+
 const kSubHeaderTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontFamily: 'Poppins',
