@@ -19,7 +19,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => const OnboardingAvatarSelectionScreen());
       case '/onboarding3':
-        return MaterialPageRoute(builder: (_) => const OnBoarding_Third());
+        return MaterialPageRoute(builder: (_) => const OnBoarding_Second());
       default:
         return null;
     }

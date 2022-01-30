@@ -108,7 +108,11 @@ class OnBoarding_First extends StatelessWidget {
                     Center(
                       child: GradientButon(
                         text: "Next",
-                        onPressed: () {},
+                        onPressed: () async {
+                          print('button pressed');
+                          return await Navigator.of(context)
+                              .pushNamed('/onboarding2');
+                        },
                       ),
                     )
                   ],
