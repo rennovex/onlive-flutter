@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -14,7 +16,8 @@ class ThickGradientCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        constraints: BoxConstraints(maxWidth: 370.0, minHeight: 120.0),
+        width: double.infinity,
+        constraints: BoxConstraints(minHeight: 120.0),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           gradient: kbuttonGradient,
@@ -37,17 +40,12 @@ class ThickGradientCard extends StatelessWidget {
                     'Onlive Campus',
                     style: kSubHeaderTextStyle,
                   ),
-                  Wrap(
-                    children: [
-                      Text(
-                        'Interact wity your own campus mates.',
-                        style: kAlertTextStyle,
-                      ),
-                      Text(
-                        ' Who knows who your next anynomous buddy will be?',
-                        style: kAlertTextStyle,
-                      ),
-                    ],
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Text(
+                      'Interact wity your own campus mates. Who knows who your next anynomous buddy will be?',
+                      style: kAlertTextStyle,
+                    ),
                   )
                 ],
               ),
