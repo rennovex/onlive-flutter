@@ -23,11 +23,13 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
             collegeSelectionPageState: PageStatus.Initial,
             image: '',
             imageUrl: '',
+            interests: [],
           ),
         ) {
     // on<ReguserEvent>();
     on<NicknameChanged>(_onNicknameChanged);
     on<InterestSelected>(_onInterestSelected);
+    on<LoadInterests>(_onLoadInterests);
   }
 
   FutureOr<void> _onNicknameChanged(
@@ -38,5 +40,12 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
   FutureOr<void> _onInterestSelected(
       InterestSelected event, Emitter<ReguserState> emit) {
     emit(state.copyWith(interest: event.interest));
+  }
+
+  FutureOr<void> _onLoadInterests(
+      LoadInterests event, Emitter<ReguserState> emit) async {
+    emit(state.copyWith(avatarSelectionPageState: PageStatus.Loading));
+    // emit(state.copyWith(interest: event.interest));
+    emit(state.copyWith(avatarSelectionPageState: PageStatus.Loaded));
   }
 }

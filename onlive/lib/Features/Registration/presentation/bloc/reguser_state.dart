@@ -14,6 +14,8 @@ class ReguserState extends Equatable {
   String domain;
   String college;
 
+  List<Interest> interests;
+
   PageStatus avatarSelectionPageState;
   PageStatus collegeSelectionPageState;
 
@@ -28,6 +30,7 @@ class ReguserState extends Equatable {
     required this.gender,
     required this.domain,
     required this.college,
+    required this.interests,
     required this.avatarSelectionPageState,
     required this.collegeSelectionPageState,
   });
@@ -46,6 +49,7 @@ class ReguserState extends Equatable {
     String? gender,
     String? domain,
     String? college,
+    List<Interest>? interests,
     PageStatus? avatarSelectionPageState,
     PageStatus? collegeSelectionPageState,
   }) {
@@ -60,6 +64,7 @@ class ReguserState extends Equatable {
       gender: gender ?? this.gender,
       domain: domain ?? this.domain,
       college: college ?? this.college,
+      interests: interests ?? this.interests,
       avatarSelectionPageState:
           avatarSelectionPageState ?? this.avatarSelectionPageState,
       collegeSelectionPageState:

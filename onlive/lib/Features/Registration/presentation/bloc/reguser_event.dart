@@ -24,3 +24,13 @@ class InterestSelected extends ReguserEvent {
   @override
   List<Object> get props => [interest];
 }
+
+class LoadInterests extends ReguserEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class Error extends ReguserEvent {
+  @override
+  List<Object> get props => [];
+}
