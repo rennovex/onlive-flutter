@@ -1,6 +1,6 @@
 part of 'reguser_bloc.dart';
 
-enum PageStatus { Initial, Loading, Loaded, error }
+enum PageStatus { Initial, Loading, Loaded, Error, Complete }
 
 class ReguserState extends Equatable {
   String nickname;
@@ -10,11 +10,14 @@ class ReguserState extends Equatable {
   String fullName;
   int age;
   String email;
-  String gender;
+  Gender gender;
   String domain;
   String college;
 
+  String searchCampus;
+
   List<Interest> interests;
+  List<String> colleges;
 
   PageStatus avatarSelectionPageState;
   PageStatus collegeSelectionPageState;
@@ -30,7 +33,9 @@ class ReguserState extends Equatable {
     required this.gender,
     required this.domain,
     required this.college,
+    required this.searchCampus,
     required this.interests,
+    required this.colleges,
     required this.avatarSelectionPageState,
     required this.collegeSelectionPageState,
   });
@@ -46,10 +51,12 @@ class ReguserState extends Equatable {
     String? fullName,
     int? age,
     String? email,
-    String? gender,
+    Gender? gender,
     String? domain,
     String? college,
+    String? searchCampus,
     List<Interest>? interests,
+    List<String>? colleges,
     PageStatus? avatarSelectionPageState,
     PageStatus? collegeSelectionPageState,
   }) {
@@ -64,7 +71,9 @@ class ReguserState extends Equatable {
       gender: gender ?? this.gender,
       domain: domain ?? this.domain,
       college: college ?? this.college,
+      searchCampus: searchCampus ?? this.searchCampus,
       interests: interests ?? this.interests,
+      colleges: colleges ?? this.colleges,
       avatarSelectionPageState:
           avatarSelectionPageState ?? this.avatarSelectionPageState,
       collegeSelectionPageState:

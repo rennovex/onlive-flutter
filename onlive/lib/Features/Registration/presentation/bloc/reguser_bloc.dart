@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:onlive/Features/Registration/domain/entities/interest.dart';
+import 'package:onlive/Utils/constants/enum.dart';
 
 part 'reguser_event.dart';
 part 'reguser_state.dart';
@@ -18,18 +19,27 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
             fullName: '',
             college: '',
             email: '',
-            gender: '',
+            gender: Gender.Male,
             domain: '',
             collegeSelectionPageState: PageStatus.Initial,
             image: '',
             imageUrl: '',
             interests: [],
+            searchCampus: '',
+            colleges: [],
           ),
         ) {
     // on<ReguserEvent>();
     on<NicknameChanged>(_onNicknameChanged);
     on<InterestSelected>(_onInterestSelected);
     on<LoadInterests>(_onLoadInterests);
+    on<PublicProfileComplete>(_onPublicProfileComplete);
+    on<FullNameChanged>(_onFullNameChanged);
+    on<AgeChanged>(_onAgeChanged);
+    on<GenderChanged>(_onGenderChanged);
+    on<DomainSelected>(_onDomainSelected);
+    on<CampusSearchChanged>(_onCampusSearchChanged);
+    on<CampusSelected>(_onCampusSelected);
   }
 
   FutureOr<void> _onNicknameChanged(
@@ -47,5 +57,42 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
     emit(state.copyWith(avatarSelectionPageState: PageStatus.Loading));
     // emit(state.copyWith(interest: event.interest));
     emit(state.copyWith(avatarSelectionPageState: PageStatus.Loaded));
+  }
+
+  FutureOr<void> _onPublicProfileComplete(
+      PublicProfileComplete event, Emitter<ReguserState> emit) async {
+    if (state.interest == null || state.nickname == '')
+      emit(state.copyWith(avatarSelectionPageState: PageStatus.Error));
+    else
+      emit(state.copyWith(avatarSelectionPageState: PageStatus.Complete));
+  }
+
+  FutureOr<void> _onFullNameChanged(
+      FullNameChanged event, Emitter<ReguserState> emit) {
+    emit(state.copyWith(fullName: event.fullName));
+  }
+
+  FutureOr<void> _onAgeChanged(AgeChanged event, Emitter<ReguserState> emit) {
+    emit(state.copyWith(age: event.age));
+  }
+
+  FutureOr<void> _onGenderChanged(
+      GenderChanged event, Emitter<ReguserState> emit) {
+    emit(state.copyWith(gender: event.gender));
+  }
+
+  FutureOr<void> _onDomainSelected(
+      DomainSelected event, Emitter<ReguserState> emit) {
+    emit(state.copyWith(domain: event.domain));
+  }
+
+  FutureOr<void> _onCampusSearchChanged(
+      CampusSearchChanged event, Emitter<ReguserState> emit) {
+    // TODO: campus search implementation
+  }
+
+  FutureOr<void> _onCampusSelected(
+      CampusSelected event, Emitter<ReguserState> emit) {
+    emit(state.copyWith(college: event.college));
   }
 }
