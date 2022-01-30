@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
+import 'package:onlive/constants.dart';
 
 class ThickGradientCard extends StatelessWidget {
-  // final Function() onPressed;
-  // final String text;
-  // const GradientButton({
-  //   required this.text,
-  //   // required this.onPressed,
-  // });
+  final Function() onPressed;
+  final String text;
+  final String img;
+  final String para;
+  const ThickGradientCard({
+    required this.text,
+    required this.para,
+    required this.img,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +30,19 @@ class ThickGradientCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.asset('images/card_illustration1.png'),
+            Image.asset(img),
             Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Onlive Campus',
+                    text,
                     style: kSubHeaderTextStyle,
                   ),
-                  Wrap(
-                    children: [
-                      Text(
-                        'Interact wity your own campus mates.',
-                        style: kAlertTextStyle,
-                      ),
-                      Text(
-                        ' Who knows who your next anynomous buddy will be?',
-                        style: kAlertTextStyle,
-                      ),
-                    ],
+                  Text(
+                    para,
+                    style: kAlertTextStyle,
                   )
                 ],
               ),

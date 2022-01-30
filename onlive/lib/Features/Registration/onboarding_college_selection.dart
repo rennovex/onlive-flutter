@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import '../constants.dart';
-import '../widgets/gradient_button.dart';
-import '../widgets/thick_gradient_card.dart';
+import 'package:onlive/constants.dart';
+import 'package:onlive/widgets/gradient_button.dart';
+import 'package:onlive/widgets/thick_gradient_card.dart';
 
-class OnBoarding_Third extends StatelessWidget {
-  const OnBoarding_Third({Key? key}) : super(key: key);
-
+class OnBoardingCollegeSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,17 +35,17 @@ class OnBoarding_Third extends StatelessWidget {
                 height: 15,
               ),
               Text(
-                "what would you like to do on onlive?",
+                "Select your campus",
                 style: kSubHeaderTextStyle,
               ),
               SizedBox(
                 height: 15,
               ),
-              ThickGradientCard(),
-              SizedBox(
-                height: 30,
-              ),
-              ThickGradientCard(),
+              Center(
+                child: GradientButon(
+                    //text = "Next",
+                    ),
+              )
             ],
           ),
         ),

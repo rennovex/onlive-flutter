@@ -1,14 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import '../constants.dart';
-import '../widgets/pill_toggle_button.dart';
-import '../widgets/profile_icon_button.dart';
-import '../widgets/gradient_button.dart';
-import 'package:pixel_perfect/pixel_perfect.dart';
 
-class OnBoarding_First extends StatelessWidget {
-  const OnBoarding_First({Key? key}) : super(key: key);
+import 'package:onlive/constants.dart';
+import 'package:onlive/widgets/gradient_button.dart';
+import 'package:onlive/widgets/input_box.dart';
+
+class OnBoarding_Second extends StatelessWidget {
+  const OnBoarding_Second({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,65 +31,70 @@ class OnBoarding_First extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Let's set your public ",
+                "Let's get you up and ",
                 style: kHeaderTextStyle,
               ),
               Text(
-                "profle ",
+                "running! ",
                 style: kHeaderTextStyle,
               ),
               SizedBox(
                 height: 15,
               ),
               Text(
-                "Let’s now set up your public profile. This is the only data that will be visible to the public",
+                "We need know a bit about you to get your account up and running.",
                 style: kParaTextStyle,
               ),
               SizedBox(
                 height: 30,
               ),
-              Center(child: ProfileIconButton()),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset('images/exclamation-icon.png'),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    'None of this information will  be visible to the public.',
+                    style: kAlertTextStyle,
+                  )
+                ],
+              ),
               SizedBox(
-                height: 20,
+                height: 15,
               ),
               Text(
                 'NickName',
                 style: kParaTextStyle,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Container(
-                  height: 30,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Enter Name Here',
-                      hintText: 'Enter Name Here',
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Interests',
-                style: kParaTextStyle,
-              ),
-              Wrap(
-                children: [
-                  PillToggleButton(),
-                  PillToggleButton(),
-                  PillToggleButton(),
-                  PillToggleButton(),
-                  PillToggleButton(),
-                  PillToggleButton(),
-                  PillToggleButton(),
-                  PillToggleButton(),
-                ],
-              ),
+              InputBox(),
               SizedBox(
                 height: 15,
+              ),
+              Text(
+                'Age',
+                style: kParaTextStyle,
+              ),
+              InputBox(),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                'Email',
+                style: kParaTextStyle,
+              ),
+              InputBox(),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                'Gender',
+                style: kParaTextStyle,
+              ),
+              InputBox(),
+              SizedBox(
+                height: 20,
               ),
               Center(
                 child: GradientButon(
