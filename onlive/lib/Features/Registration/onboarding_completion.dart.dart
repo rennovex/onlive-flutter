@@ -39,8 +39,9 @@ class OnBoardingCompletion extends StatelessWidget {
               ),
               Center(
                 child: GradientButon(
-                    //text = "Next",
-                    ),
+                  onPressed: () {},
+                  text: "Next",
+                ),
               )
             ],
           ),

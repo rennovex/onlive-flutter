@@ -40,9 +40,11 @@ class ThickGradientCard extends StatelessWidget {
                     text,
                     style: kSubHeaderTextStyle,
                   ),
-                  Text(
-                    para,
-                    style: kAlertTextStyle,
+                  Expanded(
+                    child: Text(
+                      para,
+                      style: kAlertTextStyle,
+                    ),
                   )
                 ],
               ),

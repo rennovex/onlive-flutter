@@ -24,50 +24,48 @@ class OnBoarding_Third extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "You're almost set!",
-                  style: kHeaderTextStyle,
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "what would you like to do on onlive?",
-                  style: kSubHeaderTextStyle,
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                ThickGradientCard(
-                  img: 'images/card_illustration1.png',
-                  onPressed: () {},
-                  text: 'Onlive Campus',
-                  para:
-                      'Interact wity your own campus mates. Who knows who your next anynomous buddy will be?',
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                ThickGradientCard(
-                  img: 'images/card_illustration2.png',
-                  onPressed: () {},
-                  text: 'Onlive Public',
-                  para:
-                      'Interact with anyone in the world. Make friends with different cultures and backgrounds',
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  'Once you select your domain, there’s no going back',
-                  style: kAlertTextStyle,
-                )
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "You're almost set!",
+                style: kHeaderTextStyle,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                "what would you like to do on onlive?",
+                style: kSubHeaderTextStyle,
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              ThickGradientCard(
+                img: 'images/card_illustration1.png',
+                onPressed: () {},
+                text: 'Onlive Campus',
+                para:
+                    'Interact wity your own campus mates. Who knows who your next anynomous buddy will be?',
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              ThickGradientCard(
+                img: 'images/card_illustration2.png',
+                onPressed: () {},
+                text: 'Onlive Public',
+                para:
+                    'Interact with anyone in the world. Make friends with different cultures and backgrounds',
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                'Once you select your domain, there’s no going back',
+                style: kAlertTextStyle,
+              )
+            ],
           ),
         ),
       ),

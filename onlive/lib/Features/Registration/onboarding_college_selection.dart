@@ -43,8 +43,9 @@ class OnBoardingCollegeSelection extends StatelessWidget {
               ),
               Center(
                 child: GradientButon(
-                    //text = "Next",
-                    ),
+                  onPressed: () {},
+                  text: "Next",
+                ),
               )
             ],
           ),

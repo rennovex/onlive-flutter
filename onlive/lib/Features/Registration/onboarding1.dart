@@ -97,8 +97,9 @@ class OnBoarding_First extends StatelessWidget {
                 ),
                 Center(
                   child: GradientButon(
-                      //text = "Next",
-                      ),
+                    onPressed: () {},
+                    text: "Next",
+                  ),
                 )
               ],
             ),
