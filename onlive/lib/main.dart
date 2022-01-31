@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlive/Features/Registration/onboarding3.dart';
+import 'package:onlive/Features/Registration/onboarding_college_selection.dart';
 import 'package:onlive/Utils/Router/app_router.dart';
 // <<<<<<< HEAD
 // import 'package:onlive/Features/Registration/onboarding1.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
             create: (context) => di.sl<AuthCubit>(),
           )
         ],
-        child: OnBoarding_Third(),
+        child: OnBoardingCollegeSelection(),
       ),
     );
   }

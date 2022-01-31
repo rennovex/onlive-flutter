@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:onlive/constants.dart';
 import 'package:onlive/widgets/gradient_button.dart';
+import 'package:onlive/widgets/input_box.dart';
 import 'package:onlive/widgets/thick_gradient_card.dart';
 
 class OnBoardingCollegeSelection extends StatelessWidget {
@@ -41,12 +42,32 @@ class OnBoardingCollegeSelection extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
+              Row(children: [
+                Image.asset('images/search_icon.png'),
+                // TextField(
+                //   decoration: InputDecoration(
+                //     border: OutlineInputBorder(),
+                //     enabled: true,
+
+                //     //hintText: 'Name',
+                //   ),
+                // ),
+                InputBox(),
+              ]),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
+                child: Column(
+                  children: [],
+                ),
+              ),
               Center(
                 child: GradientButon(
                   onPressed: () {},
                   text: "Next",
                 ),
-              )
+              ),
             ],
           ),
         ),
