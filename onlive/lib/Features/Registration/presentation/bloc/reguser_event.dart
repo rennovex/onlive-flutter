@@ -87,6 +87,11 @@ class LoadInterests extends ReguserEvent {
   List<Object> get props => [];
 }
 
+class RegistrationComplete extends ReguserEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class PublicProfileComplete extends ReguserEvent {
   @override
   List<Object> get props => [];

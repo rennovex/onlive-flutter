@@ -40,6 +40,7 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
     on<DomainSelected>(_onDomainSelected);
     on<CampusSearchChanged>(_onCampusSearchChanged);
     on<CampusSelected>(_onCampusSelected);
+    on<RegistrationComplete>(_onRegistrationComplete);
   }
 
   FutureOr<void> _onNicknameChanged(
@@ -94,5 +95,10 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
   FutureOr<void> _onCampusSelected(
       CampusSelected event, Emitter<ReguserState> emit) {
     emit(state.copyWith(college: event.college));
+  }
+
+  FutureOr<void> _onRegistrationComplete(
+      RegistrationComplete event, Emitter<ReguserState> emit) {
+    // TODO: registration complete implementation
   }
 }
