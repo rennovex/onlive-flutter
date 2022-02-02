@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 
-class PillToggleButton extends StatefulWidget {
-  // final String text;
-  // var selected = false;
-  // final Function(bool) onPressed;
+class PillToggleButton extends StatelessWidget {
+  const PillToggleButton({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
 
-  // PillToggleButton(
-  //     {Key key, @required this.text, @required this.onPressed, this.selected})
-  //     : super(key: key);
+  final String name;
 
-  @override
-  _PillToggleButtonState createState() => _PillToggleButtonState();
-}
-
-class _PillToggleButtonState extends State<PillToggleButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,7 +28,7 @@ class _PillToggleButtonState extends State<PillToggleButton> {
           },
           child: Container(
             child: Text(
-              'interest one',
+              '$name',
               style: TextStyle(
                 fontFamily: 'poppins',
                 fontSize: 13,

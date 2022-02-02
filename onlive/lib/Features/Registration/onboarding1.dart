@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:onlive/Utils/constants/dummy_data.dart';
 import 'package:onlive/constants.dart';
 import 'package:onlive/widgets/pill_toggle_button.dart';
 import 'package:onlive/widgets/profile_icon_button.dart';
@@ -81,16 +82,10 @@ class OnBoarding_First extends StatelessWidget {
                   style: kParaTextStyle,
                 ),
                 Wrap(
-                  children: [
-                    PillToggleButton(),
-                    PillToggleButton(),
-                    PillToggleButton(),
-                    PillToggleButton(),
-                    PillToggleButton(),
-                    PillToggleButton(),
-                    PillToggleButton(),
-                    PillToggleButton(),
-                  ],
+                  direction: Axis.horizontal,
+                  children: interestsDummyData
+                      .map((e) => PillToggleButton(name: e))
+                      .toList(),
                 ),
                 SizedBox(
                   height: 15,
