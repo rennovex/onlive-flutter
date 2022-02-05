@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:onlive/constants.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -51,17 +52,75 @@ class ChatScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ChatBubble(isMe: false),
-              ChatBubble(isMe: true),
-              ChatBubble(isMe: false),
-              ChatBubble(isMe: false),
-              ChatBubble(isMe: true),
-            ],
-          ),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ChatBubble(isMe: false),
+                    ChatBubble(isMe: true),
+                    ChatBubble(isMe: false),
+                    ChatBubble(isMe: false),
+                    ChatBubble(isMe: true),
+                  ],
+                ),
+              ),
+            ),
+            NewMessage(),
+          ],
         ),
+      ),
+    );
+  }
+}
+
+class NewMessage extends StatelessWidget {
+  const NewMessage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.symmetric(
+        vertical: 8.0,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                fillColor: Color.fromRGBO(227, 227, 227, 1),
+                filled: true,
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                ),
+                hintText: 'Type Something...',
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 7,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              gradient: kgradientText,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: IconButton(
+              color: Theme.of(context).primaryColor,
+              icon: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+              ),
+              onPressed: () {},
+              // onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -90,7 +149,9 @@ class ChatBubble extends StatelessWidget {
             top: 18,
             left: 5,
           ),
-          width: MediaQuery.of(context).size.width * 0.7,
+          // width: MediaQuery.of(context).size.width * 0.7,
+          constraints:
+              BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
           decoration: BoxDecoration(
             color: isMe
                 ? Color.fromRGBO(79, 219, 146, 1)
