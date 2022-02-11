@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlive/Features/Chat/presentation/screens/chat_overview_screen.dart';
-import 'package:onlive/Features/Chat/presentation/screens/chat_screen.dart';
-import 'package:onlive/Features/Registration/presentation/screens/onboarding3.dart';
-import 'package:onlive/Features/Registration/presentation/screens/onboarding_college_selection.dart';
-import 'package:onlive/Utils/Router/app_router.dart';
-// <<<<<<< HEAD
-// import 'package:onlive/Features/Registration/onboarding1.dart';
-// =======
-import 'package:onlive/Features/Registration/presentation/screens/onboarding1.dart';
-import 'package:onlive/Features/Registration/presentation/screens/onboarding3.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'Features/Auth/presentation/cubit/auth_cubit.dart';
-import 'Features/Registration/presentation/screens/onboarding_avatar_selection_screen.dart';
+import 'Features/Chat/presentation/screens/chat_overview_screen.dart';
+import 'Utils/Router/app_router.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -39,20 +32,29 @@ class MyApp extends StatelessWidget {
             create: (context) => di.sl<AuthCubit>(),
           )
         ],
-        child: HomePage(),
+        child: HomePageFoo(),
       ),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+// class HomePage extends StatelessWidget {
+//   const HomePage({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return AutoTabsScaffold();
+//   }
+// }
+
+class HomePageFoo extends StatefulWidget {
+  const HomePageFoo({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageFoo> createState() => _HomePageFooState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageFooState extends State<HomePageFoo> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -88,30 +90,54 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chats',
+      bottomNavigationBar: SalomonBottomBar(
+        currentIndex: _selectedIndex,
+        onTap: (ind) => _onItemTapped(ind),
+        items: [
+          SalomonBottomBarItem(
+            icon: Icon(Icons.question_answer),
+            title: Text('Chat'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Groups',
+          SalomonBottomBarItem(
+            icon: Icon(Icons.group),
+            // icon: FaIcon(FontAwesomeIcons.solidComments),
+            // icon: ,
+            title: Text('Groups'),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Questions',
+          SalomonBottomBarItem(
+            icon: Icon(Icons.quiz),
+            title: Text('Questions'),
           ),
-          BottomNavigationBarItem(
+          SalomonBottomBarItem(
             icon: Icon(Icons.settings),
-            label: 'Settings',
+            title: Text('Settings'),
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
       ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   type: BottomNavigationBarType.fixed,
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.chat),
+      //       label: 'Chats',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.business),
+      //       label: 'Groups',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.school),
+      //       label: 'Questions',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.settings),
+      //       label: 'Settings',
+      //     ),
+      //   ],
+      //   currentIndex: _selectedIndex,
+      //   selectedItemColor: Colors.amber[800],
+      //   onTap: _onItemTapped,
+      // ),
     );
   }
 }

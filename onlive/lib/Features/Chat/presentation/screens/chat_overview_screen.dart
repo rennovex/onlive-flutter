@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onlive/constants.dart';
-import 'package:onlive/widgets/chat_tile.dart';
-import 'package:onlive/widgets/profile_icon_button.dart';
-import 'package:onlive/widgets/bottom_navigation_bar.dart';
+
+import '../../../../widgets/chat_tile.dart';
 
 class ChatOverviewScreen extends StatelessWidget {
   const ChatOverviewScreen({Key? key}) : super(key: key);
