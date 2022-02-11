@@ -1,7 +1,7 @@
-part of 'auth_bloc.dart';
+part of 'chat_bloc.dart';
 
-class AuthState extends Equatable {
-  const AuthState({
+class ChatState extends Equatable {
+  const ChatState({
     required this.chats,
     required this.sendMessage,
   });
@@ -13,11 +13,11 @@ class AuthState extends Equatable {
   @override
   List<Object> get props => [chats, sendMessage];
 
-  AuthState copyWith({
+  ChatState copyWith({
     List<Chat>? chats,
     String? sendMessage,
   }) {
-    return AuthState(
+    return ChatState(
       chats: chats ?? this.chats,
       sendMessage: sendMessage ?? this.sendMessage,
     );

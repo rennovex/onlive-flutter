@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:onlive/Features/Chat/domain/entitites/chat.dart';
+import 'package:onlive/Features/Chat/presentation/screens/chat_screen.dart';
+import 'package:onlive/Features/Registration/presentation/screens/onboarding1.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'Features/Auth/presentation/cubit/auth_cubit.dart';
+import 'Features/Chat/presentation/bloc/chat_bloc.dart';
 import 'Features/Chat/presentation/screens/chat_overview_screen.dart';
 import 'Utils/Router/app_router.dart';
 import 'injection_container.dart' as di;
@@ -30,9 +34,12 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => di.sl<AuthCubit>(),
-          )
+          ),
+          BlocProvider(
+            create: (context) => di.sl<ChatBloc>(),
+          ),
         ],
-        child: HomePageFoo(),
+        child: ChatOverviewScreen(),
       ),
     );
   }

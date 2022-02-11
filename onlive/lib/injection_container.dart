@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
+import 'package:onlive/Features/Chat/presentation/bloc/chat_bloc.dart';
 import 'package:onlive/Features/Registration/presentation/bloc/reguser_bloc.dart';
 import 'package:onlive/Utils/Router/app_router.dart';
 import 'Features/Registration/domain/usecases/get_interests.dart';
@@ -44,6 +45,19 @@ Future<void> init() async {
   // Bloc
 
   sl.registerFactory(() => ReguserBloc());
+
+  //UseCases
+  // sl.registerLazySingleton(() => GetInterests(sl()));
+
+  // Repository
+  // sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(sl()));
+
+  // Data sources
+
+  //! Features - Chat
+  // Bloc
+
+  sl.registerFactory(() => ChatBloc());
 
   //UseCases
   // sl.registerLazySingleton(() => GetInterests(sl()));

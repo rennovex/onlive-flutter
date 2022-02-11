@@ -92,7 +92,7 @@ class OnBoarding_First extends StatelessWidget {
                 ),
                 Center(
                   child: GradientButon(
-                    onPressed: () {},
+                    onPressed: () => print('next tapped'),
                     text: "Next",
                   ),
                 )

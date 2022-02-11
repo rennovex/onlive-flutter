@@ -35,13 +35,12 @@ class ChatOverviewScreen extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      children: [
-                        ChatTile(),
-                        ChatTile(),
-                        ChatTile(),
-                        ChatTile(),
-                      ],
+                    child: ListView.builder(
+                      itemCount: 4,
+                      itemBuilder: (_, ind) => ChatTile(
+                        onPressed: () async =>
+                            await Navigator.of(context).pushNamed('/chat'),
+                      ),
                     ),
                   ),
                 ),
