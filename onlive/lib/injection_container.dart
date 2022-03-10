@@ -2,6 +2,9 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
+import 'package:onlive/Features/Chat/data/repositories/chat_repository_impl.dart';
+import 'package:onlive/Features/Chat/domain/repositories/chat_repository.dart';
+import 'package:onlive/Features/Chat/domain/usecase/post_chat.dart';
 import 'package:onlive/Features/Chat/presentation/bloc/chat_bloc.dart';
 import 'package:onlive/Features/Registration/presentation/bloc/reguser_bloc.dart';
 import 'package:onlive/Utils/Router/app_router.dart';
@@ -47,7 +50,7 @@ Future<void> init() async {
   sl.registerFactory(() => ReguserBloc());
 
   //UseCases
-  // sl.registerLazySingleton(() => GetInterests(sl()));
+  sl.registerLazySingleton(() => PostChat(sl()));
 
   // Repository
   // sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(sl()));
@@ -57,13 +60,14 @@ Future<void> init() async {
   //! Features - Chat
   // Bloc
 
-  sl.registerFactory(() => ChatBloc());
+  // sl.registerFactory(() => ChatBloc(postChat: sl()));
 
   //UseCases
   // sl.registerLazySingleton(() => GetInterests(sl()));
+  sl.registerFactory(() => ChatBloc(postChat: sl()));
 
   // Repository
-  // sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(sl()));
+  sl.registerLazySingleton<ChatRepository>(() => ChatRepositoryImpl());
 
   // Data sources
 

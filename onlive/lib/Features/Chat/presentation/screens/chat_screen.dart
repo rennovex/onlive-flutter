@@ -6,117 +6,144 @@ import '../../../../injection_container.dart';
 import '../../domain/entitites/chat.dart';
 import '../bloc/chat_bloc.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  late ScrollController _scrollController;
+  void _scrollToBottom() {
+    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       // appBar: AppBar(
       // appBar: CustomAppBar(),
       body: BlocProvider(
         create: (context) => sl<ChatBloc>(),
-        child: BlocBuilder<ChatBloc, ChatState>(
-          builder: (context, state) {
-            return SafeArea(
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(152, 227, 255, 1),
-                      Color.fromRGBO(149, 255, 206, 1),
-                    ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                ),
-                child: Column(
-                  children: [
-                    // ChatAppBar(),
-                    Container(
-                      height: 70,
-                      width: double.infinity,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+        child: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(152, 227, 255, 1),
+                  Color.fromRGBO(149, 255, 206, 1),
+                ],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+            ),
+            child: Column(
+              children: [
+                // ChatAppBar(),
+                Container(
+                  height: 70,
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
                         children: [
-                          Row(
+                          IconButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            icon: Icon(Icons.arrow_back),
+                          ),
+                          CircleAvatar(
+                            radius: 20.0,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              IconButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                icon: Icon(Icons.arrow_back),
+                              Text(
+                                'Hamid Raza',
+                                style: kActionHeaderTextStyle,
                               ),
-                              CircleAvatar(
-                                radius: 20.0,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Hamid Raza',
-                                    style: kActionHeaderTextStyle,
-                                  ),
-                                  Text(
-                                    'Online',
-                                    style: kParaTextStyle,
-                                  ),
-                                ],
+                              Text(
+                                'Online',
+                                style: kParaTextStyle,
                               ),
                             ],
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.more_vert),
                           ),
                         ],
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20.0),
-                            topRight: Radius.circular(20.0),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: SingleChildScrollView(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: BlocBuilder<ChatBloc, ChatState>(
-                                      builder: (context, state) {
-                                        return ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: state.chats.length,
-                                          itemBuilder: (_, index) => ChatBubble(
-                                            chat: state.chats[index],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              NewMessage(),
-                            ],
-                          ),
-                        ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.more_vert),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
                       ),
                     ),
-                  ],
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 14.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: 8.0,
+                                // bottom:
+                                //     MediaQuery.of(context).viewInsets.bottom,
+                              ),
+                              child: BlocBuilder<ChatBloc, ChatState>(
+                                  builder: (context, state) {
+                                if (state.pageStatus ==
+                                    PageStatus.NewChatAdded) {
+                                  // print("scrolling");
+                                  // _scrollToBottom();
+                                }
+                                // } else
+                                // if (state.pageStatus == PageStatus.Loaded) {
+                                return ListView.builder(
+                                  controller: _scrollController,
+                                  shrinkWrap: true,
+                                  reverse: true,
+                                  itemCount: state.chats.length,
+                                  itemBuilder: (_, index) => ChatBubble(
+                                    chat: state.chats.reversed.toList()[index],
+                                    // key: UniqueKey(),
+                                  ),
+                                );
+                              }
+                                  // return Text('Error');
+                                  // },
+                                  ),
+                            ),
+                          ),
+                          NewMessage(),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            );
-          },
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -152,27 +179,43 @@ class CustomAppBar extends StatelessWidget {
   }
 }
 
-class NewMessage extends StatelessWidget {
+class NewMessage extends StatefulWidget {
   const NewMessage({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<NewMessage> createState() => _NewMessageState();
+}
+
+class _NewMessageState extends State<NewMessage> {
+  late TextEditingController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChatBloc, ChatState>(
-      builder: (context, state) {
-        return Container(
-          margin: const EdgeInsets.only(top: 8.0),
-          padding: const EdgeInsets.symmetric(
-            vertical: 8.0,
-          ),
-          child: Row(
+    return Container(
+      margin: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.symmetric(
+        vertical: 8.0,
+      ),
+      child: BlocBuilder<ChatBloc, ChatState>(
+        builder: (context, state) {
+          return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: TextField(
-                  onChanged: (message) => BlocProvider.of<ChatBloc>(context)
-                      .add(SendMessageChanged(sendMessage: message)),
+                  controller: _controller,
+                  onChanged: (message) {
+                    context
+                        .read<ChatBloc>()
+                        .add(SendMessageChanged(sendMessage: message));
+                  },
                   decoration: InputDecoration(
                     fillColor: Color.fromRGBO(227, 227, 227, 1),
                     filled: true,
@@ -192,20 +235,22 @@ class NewMessage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: IconButton(
-                  color: Theme.of(context).primaryColor,
-                  icon: Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => BlocProvider.of<ChatBloc>(context)
-                      .add(SendMessageClicked()),
-                  // onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
-                ),
+                    color: Theme.of(context).primaryColor,
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      context.read<ChatBloc>().add(SendMessageClicked());
+                      _controller.clear();
+                    }
+                    // onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
+                    ),
               ),
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -252,6 +297,7 @@ class ChatBubble extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(0.0),
@@ -265,16 +311,13 @@ class ChatBubble extends StatelessWidget {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    '2.33',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                    ),
+                Text(
+                  '2.33',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12,
                   ),
                 ),
               ],

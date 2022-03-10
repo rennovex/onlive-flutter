@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:onlive/Features/Chat/domain/entitites/chat.dart';
 import 'package:onlive/Features/Chat/presentation/screens/chat_screen.dart';
 import 'package:onlive/Features/Registration/presentation/screens/onboarding1.dart';
+import 'package:onlive/Utils/app_bloc_observer.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'Features/Auth/presentation/cubit/auth_cubit.dart';
@@ -15,7 +16,13 @@ import 'injection_container.dart' as di;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  runApp(const MyApp());
+
+  BlocOverrides.runZoned(
+    () {
+      runApp(const MyApp());
+    },
+    blocObserver: AppBlocObserver(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -39,7 +46,7 @@ class MyApp extends StatelessWidget {
             create: (context) => di.sl<ChatBloc>(),
           ),
         ],
-        child: ChatOverviewScreen(),
+        child: HomePageFoo(),
       ),
     );
   }
