@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
+import 'package:onlive/Features/Chat/data/datasources/chat_remote_data_source.dart';
 import 'package:onlive/Features/Chat/data/repositories/chat_repository_impl.dart';
 import 'package:onlive/Features/Chat/domain/repositories/chat_repository.dart';
 import 'package:onlive/Features/Chat/domain/usecase/get_chats.dart';
@@ -70,7 +71,11 @@ Future<void> init() async {
   sl.registerFactory(() => ChatBloc(postChat: sl(), getChats: sl()));
 
   // Repository
-  sl.registerLazySingleton<ChatRepository>(() => ChatRepositoryImpl());
+  sl.registerLazySingleton<ChatRepository>(
+      () => ChatRepositoryImpl(remoteDataSource: sl()));
+  sl.registerLazySingleton<ChatRemoteDataSource>(
+      () => ChatRemoteDataSourceImpl(client: sl()));
+  // sl.registerLazySingleton<ChatRemoteDataSource>(() => ChatRemoteDataSource();
 
   // Data sources
 
