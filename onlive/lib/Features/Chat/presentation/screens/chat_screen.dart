@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlive/Features/Chat/presentation/cubit/chat_overview_cubit.dart';
 
 import '../../../../constants.dart';
 import '../../../../injection_container.dart';
@@ -110,29 +111,39 @@ class _ChatScreenState extends State<ChatScreen> {
                                 // bottom:
                                 //     MediaQuery.of(context).viewInsets.bottom,
                               ),
-                              child: BlocBuilder<ChatBloc, ChatState>(
-                                  builder: (context, state) {
-                                if (state.pageStatus ==
-                                    PageStatus.NewChatAdded) {
-                                  // print("scrolling");
-                                  // _scrollToBottom();
-                                }
-                                // } else
-                                // if (state.pageStatus == PageStatus.Loaded) {
-                                return ListView.builder(
-                                  controller: _scrollController,
-                                  shrinkWrap: true,
-                                  reverse: true,
-                                  itemCount: state.chats.length,
-                                  itemBuilder: (_, index) => ChatBubble(
-                                    chat: state.chats.reversed.toList()[index],
-                                    // key: UniqueKey(),
-                                  ),
-                                );
-                              }
-                                  // return Text('Error');
-                                  // },
-                                  ),
+                              child: BlocBuilder<ChatOverviewCubit,
+                                  ChatOverviewState>(
+                                builder: (context, userState) {
+                                  return BlocBuilder<ChatBloc, ChatState>(
+                                      builder: (context, state) {
+                                    if (state.pageStatus ==
+                                        PageStatus.Initial) {
+                                      print(
+                                          "selected Chat: ${userState.selectedChat}");
+                                      context.read<ChatBloc>().add(
+                                          LoadChat(userState.selectedChat));
+                                      // print("scrolling");
+                                      // _scrollToBottom();
+                                    }
+                                    // } else
+                                    // if (state.pageStatus == PageStatus.Loaded) {
+                                    return ListView.builder(
+                                      controller: _scrollController,
+                                      shrinkWrap: true,
+                                      reverse: true,
+                                      itemCount: state.chats.length,
+                                      itemBuilder: (_, index) => ChatBubble(
+                                        chat: state.chats.reversed
+                                            .toList()[index],
+                                        // key: UniqueKey(),
+                                      ),
+                                    );
+                                  }
+                                      // return Text('Error');
+                                      // },
+                                      );
+                                },
+                              ),
                             ),
                           ),
                           NewMessage(),
@@ -234,18 +245,23 @@ class _NewMessageState extends State<NewMessage> {
                   gradient: kgradientText,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: IconButton(
-                    color: Theme.of(context).primaryColor,
-                    icon: Icon(
-                      Icons.arrow_forward_ios,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      context.read<ChatBloc>().add(SendMessageClicked());
-                      _controller.clear();
-                    }
-                    // onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
-                    ),
+                child: BlocBuilder<ChatOverviewCubit, ChatOverviewState>(
+                  builder: (context, overviewState) {
+                    return IconButton(
+                        color: Theme.of(context).primaryColor,
+                        icon: Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          context.read<ChatBloc>().add(
+                              SendMessageClicked(overviewState.selectedChat));
+                          _controller.clear();
+                        }
+                        // onPressed: _enteredMessage.trim().isEmpty ? null : _sendMessage,
+                        );
+                  },
+                ),
               ),
             ],
           );

@@ -3,21 +3,23 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:onlive/Features/Chat/domain/entitites/chat.dart';
-import 'package:onlive/Features/Chat/domain/usecase/post_chat.dart';
+import 'package:onlive/Features/Chat/domain/usecase/get_chats.dart' as GC;
+import 'package:onlive/Features/Chat/domain/usecase/post_chat.dart' as PC;
 import 'package:onlive/dummy_data.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  final PostChat postChat;
-  ChatBloc({required this.postChat})
+  final PC.PostChat postChat;
+  final GC.GetChats getChats;
+  ChatBloc({required this.postChat, required this.getChats})
       : super(
-          ChatState(
-              chats: chats, sendMessage: '', pageStatus: PageStatus.Loaded),
+          ChatState(chats: [], sendMessage: '', pageStatus: PageStatus.Initial),
         ) {
     on<SendMessageChanged>(_onSendMessageChanged);
     on<SendMessageClicked>(_onSendMessageClicked);
+    on<LoadChat>(_onLoadChat);
   }
 
   FutureOr<void> _onSendMessageChanged(
@@ -31,17 +33,32 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       isMe: true,
       message: state.sendMessage.trim(),
     );
-    List<Chat> _chats = state.chats;
+    // List<Chat> _chats = state.chats;
     print(state.sendMessage);
     if (state.sendMessage != '') {
-      _chats.add(chat);
+      // _chats.add(chat);
       // emit(state.copyWith(pageStatus: PageStatus.Loading));
-      postChat(Params(chat: chat));
-      emit(state.copyWith(chats: _chats, sendMessage: ''));
+      postChat(PC.Params(chat: chat, userId: event.userId));
+      emit(state.copyWith(pageStatus: PageStatus.Initial));
+      // emit(state.copyWith(pageStatus: PageStatus.NewChatAdded));
+      // List<Chat> chats = [];
+      // final res = await getChats(GC.Params(userId: event.userId));
+      // res.fold((exception) => print(exception), (value) => chats = value);
+      // emit(state.copyWith(chats: chats));
+      // emit(state.copyWith(pageStatus: PageStatus.Loaded));
+      // emit(LoadChat(event.userId));
       // emit(state.copyWith(pageStatus: PageStatus.NewChatAdded));
       // await Future.delayed(Duration(seconds: 1));
       // emit(state.copyWith(pageStatus: PageStatus.Loaded));
     }
     // emit(state.copyWith(chats: _chats));
+  }
+
+  FutureOr<void> _onLoadChat(LoadChat event, Emitter<ChatState> emit) async {
+    List<Chat> chats = [];
+    final res = await getChats(GC.Params(userId: event.userId));
+    res.fold((exception) => print(exception), (value) => chats = value);
+    emit(state.copyWith(chats: chats));
+    emit(state.copyWith(pageStatus: PageStatus.Loaded));
   }
 }

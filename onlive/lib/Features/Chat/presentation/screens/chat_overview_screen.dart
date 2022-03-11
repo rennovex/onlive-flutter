@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlive/Features/Chat/presentation/cubit/chat_overview_cubit.dart';
 
+import '../../../../injection_container.dart';
 import '../../../../widgets/chat_tile.dart';
 
 class ChatOverviewScreen extends StatelessWidget {
@@ -35,12 +38,19 @@ class ChatOverviewScreen extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: ListView.builder(
-                      itemCount: 4,
-                      itemBuilder: (_, ind) => ChatTile(
-                        onPressed: () async =>
-                            await Navigator.of(context).pushNamed('/chat'),
-                      ),
+                    child: BlocBuilder<ChatOverviewCubit, ChatOverviewState>(
+                      builder: (context, state) {
+                        return ListView.builder(
+                          itemCount: 4,
+                          itemBuilder: (_, ind) =>
+                              ChatTile(onPressed: () async {
+                            context
+                                .read<ChatOverviewCubit>()
+                                .setSelectedUser(ind + 1);
+                            await Navigator.of(context).pushNamed('/chat');
+                          }),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -96,6 +106,9 @@ class ChatAppBar extends StatelessWidget {
                 StoryWidget(),
                 StoryWidget(),
                 StoryWidget(),
+                // TextButton(
+                //     onPressed: () => Navigator.of(context).pushNamed('/chat'),
+                //     child: Text('Next'))
               ],
             ),
             SizedBox(

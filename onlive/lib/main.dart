@@ -9,6 +9,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'Features/Auth/presentation/cubit/auth_cubit.dart';
 import 'Features/Chat/presentation/bloc/chat_bloc.dart';
+import 'Features/Chat/presentation/cubit/chat_overview_cubit.dart';
 import 'Features/Chat/presentation/screens/chat_overview_screen.dart';
 import 'Utils/Router/app_router.dart';
 import 'injection_container.dart' as di;
@@ -31,22 +32,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: di.sl<AppRouter>().onGenerateRoute,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => di.sl<AuthCubit>(),
-          ),
-          BlocProvider(
-            create: (context) => di.sl<ChatBloc>(),
-          ),
-        ],
-        child: HomePageFoo(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => di.sl<AuthCubit>(),
+        ),
+        // BlocProvider(
+        //   create: (context) => di.sl<ChatBloc>(),
+        // ),
+        BlocProvider(
+          create: (context) => di.sl<ChatOverviewCubit>(),
+        ),
+      ],
+      child: MaterialApp(
+        onGenerateRoute: di.sl<AppRouter>().onGenerateRoute,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: HomePageFoo(),
       ),
     );
   }

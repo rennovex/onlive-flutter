@@ -18,6 +18,17 @@ class SendMessageChanged extends ChatEvent {
 }
 
 class SendMessageClicked extends ChatEvent {
+  final int userId;
+
+  SendMessageClicked(this.userId);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [userId];
+}
+
+class LoadChat extends ChatEvent {
+  final int userId;
+
+  LoadChat(this.userId);
+  @override
+  List<Object> get props => [userId];
 }

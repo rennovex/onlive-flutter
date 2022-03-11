@@ -13,14 +13,15 @@ class PostChat implements UseCase<NoParams, Params> {
 
   @override
   Future<Either<Failure, NoParams>> call(Params params) async {
-    return await repository.postChat(params.chat);
+    return await repository.postChat(params.chat, params.userId);
   }
 }
 
 class Params extends Equatable {
   final Chat chat;
+  final int userId;
 
-  Params({required this.chat});
+  Params({required this.userId, required this.chat});
 
   @override
   List<Object> get props => [chat];
