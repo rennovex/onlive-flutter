@@ -1,17 +1,26 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../datasources/chat_remote_data_source.dart';
-import '../../domain/entitites/chat.dart';
-import '../../../../dummy_data.dart';
+
+import 'package:onlive/core/redis/redis_service.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';
+import '../../../../dummy_data.dart';
+import '../../domain/entitites/chat.dart';
 import '../../domain/repositories/chat_repository.dart';
+import '../datasources/chat_remote_data_source.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
   final ChatRemoteDataSource remoteDataSource;
+  late StreamSubscription streamSubscription;
+  final RedisService redisService;
 
-  ChatRepositoryImpl({required this.remoteDataSource});
+  ChatRepositoryImpl({
+    required this.remoteDataSource,
+    required this.redisService,
+  });
   // final ChatLocalDataSource remoteDataSource;
 
   @override
@@ -37,5 +46,20 @@ class ChatRepositoryImpl implements ChatRepository {
       return Right(chats_user_1);
     else
       return Right(chats_user_2);
+  }
+
+  @override
+  Future<Either<Failure, Stream>> listenToRedis() async {
+    try {
+      final Stream redisStream = await redisService.pubsub.getStream();
+      return Right(redisStream);
+    } catch (ex) {
+      print(ex);
+      return Left(RedisFailure());
+      //
+    }
+
+    // return Failure();
+    // emit(RedisListening());
   }
 }

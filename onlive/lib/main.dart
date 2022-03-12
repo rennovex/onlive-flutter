@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Features/Chat/domain/entitites/chat.dart';
+import 'Features/Chat/presentation/cubit/redis_cubit.dart';
 import 'Features/Chat/presentation/screens/chat_screen.dart';
 import 'Features/Registration/presentation/screens/onboarding1.dart';
 import 'Utils/app_bloc_observer.dart';
@@ -38,9 +39,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => di.sl<AuthCubit>(),
         ),
-        // BlocProvider(
-        //   create: (context) => di.sl<ChatBloc>(),
-        // ),
+        BlocProvider(
+          create: (context) => di.sl<RedisCubit>(),
+        ),
         BlocProvider(
           create: (context) => di.sl<ChatOverviewCubit>(),
         ),
@@ -107,56 +108,63 @@ class _HomePageFooState extends State<HomePageFoo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: SalomonBottomBar(
-        currentIndex: _selectedIndex,
-        onTap: (ind) => _onItemTapped(ind),
-        items: [
-          SalomonBottomBarItem(
-            icon: Icon(Icons.question_answer),
-            title: Text('Chat'),
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.group),
-            // icon: FaIcon(FontAwesomeIcons.solidComments),
-            // icon: ,
-            title: Text('Groups'),
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.quiz),
-            title: Text('Questions'),
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
-          ),
-        ],
+    return BlocListener<RedisCubit, RedisState>(
+      listener: (context, state) {
+        if (state is RedisNewEvents) {
+          print('New Event received');
+        }
+      },
+      child: Scaffold(
+        body: _widgetOptions.elementAt(_selectedIndex),
+        bottomNavigationBar: SalomonBottomBar(
+          currentIndex: _selectedIndex,
+          onTap: (ind) => _onItemTapped(ind),
+          items: [
+            SalomonBottomBarItem(
+              icon: Icon(Icons.question_answer),
+              title: Text('Chat'),
+            ),
+            SalomonBottomBarItem(
+              icon: Icon(Icons.group),
+              // icon: FaIcon(FontAwesomeIcons.solidComments),
+              // icon: ,
+              title: Text('Groups'),
+            ),
+            SalomonBottomBarItem(
+              icon: Icon(Icons.quiz),
+              title: Text('Questions'),
+            ),
+            SalomonBottomBarItem(
+              icon: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+          ],
+        ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   type: BottomNavigationBarType.fixed,
+        //   items: const <BottomNavigationBarItem>[
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.chat),
+        //       label: 'Chats',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.business),
+        //       label: 'Groups',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.school),
+        //       label: 'Questions',
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.settings),
+        //       label: 'Settings',
+        //     ),
+        //   ],
+        //   currentIndex: _selectedIndex,
+        //   selectedItemColor: Colors.amber[800],
+        //   onTap: _onItemTapped,
+        // ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   type: BottomNavigationBarType.fixed,
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.chat),
-      //       label: 'Chats',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.business),
-      //       label: 'Groups',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.school),
-      //       label: 'Questions',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.settings),
-      //       label: 'Settings',
-      //     ),
-      //   ],
-      //   currentIndex: _selectedIndex,
-      //   selectedItemColor: Colors.amber[800],
-      //   onTap: _onItemTapped,
-      // ),
     );
   }
 }
