@@ -1,4 +1,4 @@
-import 'package:onlive/Features/Registration/domain/entities/college.dart';
+import '../../domain/entities/college.dart';
 
 import '../../domain/entities/avatar.dart';
 import '../../domain/entities/interest.dart';

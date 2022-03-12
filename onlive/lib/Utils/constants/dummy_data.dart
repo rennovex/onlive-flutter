@@ -1,5 +1,5 @@
-import 'package:onlive/Features/Registration/domain/entities/college.dart';
-import 'package:onlive/Features/Registration/domain/entities/interest.dart';
+import '../../Features/Registration/domain/entities/college.dart';
+import '../../Features/Registration/domain/entities/interest.dart';
 
 final List<College> colleges = [
   College("TKM"),

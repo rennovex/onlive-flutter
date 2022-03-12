@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:onlive/constants.dart';
-import 'package:onlive/widgets/gradient_button.dart';
+import '../../../../constants.dart';
+import '../../../../widgets/gradient_button.dart';
 
 class OnboardingAvatarSelectionScreen extends StatelessWidget {
   const OnboardingAvatarSelectionScreen({Key? key}) : super(key: key);

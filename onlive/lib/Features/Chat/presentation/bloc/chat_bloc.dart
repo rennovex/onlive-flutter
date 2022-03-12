@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:onlive/Features/Chat/domain/entitites/chat.dart';
-import 'package:onlive/Features/Chat/domain/usecase/get_chats.dart' as GC;
-import 'package:onlive/Features/Chat/domain/usecase/post_chat.dart' as PC;
-import 'package:onlive/dummy_data.dart';
+import '../../domain/entitites/chat.dart';
+import '../../domain/usecase/get_chats.dart' as GC;
+import '../../domain/usecase/post_chat.dart' as PC;
+import '../../../../dummy_data.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';

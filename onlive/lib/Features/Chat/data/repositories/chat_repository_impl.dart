@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:onlive/Features/Chat/data/datasources/chat_remote_data_source.dart';
-import 'package:onlive/Features/Chat/domain/entitites/chat.dart';
-import 'package:onlive/dummy_data.dart';
+import '../datasources/chat_remote_data_source.dart';
+import '../../domain/entitites/chat.dart';
+import '../../../../dummy_data.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';

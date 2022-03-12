@@ -1,5 +1,5 @@
-import 'package:onlive/Features/Chat/domain/entitites/chat.dart';
-import 'package:onlive/core/usecases/usecase.dart';
+import '../../domain/entitites/chat.dart';
+import '../../../../core/usecases/usecase.dart';
 
 abstract class ChatLocalDataSource {
   /// Calls the http://numbersapi.com/{number} endpoint.
