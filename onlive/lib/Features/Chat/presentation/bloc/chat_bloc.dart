@@ -30,8 +30,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   FutureOr<void> _onSendMessageClicked(
       SendMessageClicked event, Emitter<ChatState> emit) async {
     final Chat chat = Chat(
-      isMe: true,
-      message: state.sendMessage.trim(),
+      from: '$USERID',
+      to: '',
+      body: state.sendMessage.trim(),
+      status: '',
+      timeStamp: DateTime.now(),
+      id: '',
+      v: 1,
     );
     // List<Chat> _chats = state.chats;
     print(state.sendMessage);
@@ -39,7 +44,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       // _chats.add(chat);
       // emit(state.copyWith(pageStatus: PageStatus.Loading));
       postChat(PC.Params(chat: chat, userId: event.userId));
-      emit(state.copyWith(pageStatus: PageStatus.Initial));
+      emit(state.copyWith(pageStatus: PageStatus.Initial, sendMessage: ''));
       // emit(state.copyWith(pageStatus: PageStatus.NewChatAdded));
       // List<Chat> chats = [];
       // final res = await getChats(GC.Params(userId: event.userId));
@@ -55,6 +60,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   FutureOr<void> _onLoadChat(LoadChat event, Emitter<ChatState> emit) async {
+    emit(state.copyWith(pageStatus: PageStatus.Initial));
     List<Chat> chats = [];
     final res = await getChats(GC.Params(userId: event.userId));
     res.fold((exception) => print(exception), (value) => chats = value);

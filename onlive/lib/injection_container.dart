@@ -2,7 +2,10 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
+import 'package:onlive/Features/Auth/data/datasources/auth_remote_data_source.dart';
+import 'package:onlive/Features/Auth/domain/usecase/logout.dart';
 import 'package:onlive/Features/Chat/domain/usecase/listen_to_redis.dart';
+import 'package:onlive/Features/Chat/domain/usecase/save_chat.dart';
 import 'Features/Chat/data/datasources/chat_remote_data_source.dart';
 import 'Features/Chat/data/repositories/chat_repository_impl.dart';
 import 'Features/Chat/domain/repositories/chat_repository.dart';
@@ -29,21 +32,23 @@ Future<void> init() async {
   //! Features - Auth
   // Bloc
   sl.registerFactory(
-    () => AuthCubit(postLogin: sl()),
+    () => AuthCubit(postLogin: sl(), logout: sl()),
   );
 
   //UseCases
   sl.registerLazySingleton(() => PostLogin(sl()));
+  sl.registerLazySingleton(() => Logout(sl()));
 
   // Repository
-  sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(sl()));
+  sl.registerLazySingleton<UserRepository>(
+      () => UserRepositoryImpl(sl(), sl()));
 
   // Data sources
-  // sl.registerLazySingleton<PostsRemoteDataSource>(
-  //   () => PostsRemoteDataSourceImpl(
-  //     client: sl(),
-  //   ),
-  // );
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(
+      client: sl(),
+    ),
+  );
 
   // sl.registerLazySingleton<PostsLocalDataSource>(
   //   () => PostsLocalDataSourceImpl(
@@ -68,7 +73,7 @@ Future<void> init() async {
 
   // sl.registerFactory(() => ChatBloc(postChat: sl()));
   sl.registerFactory(() => ChatOverviewCubit());
-  sl.registerFactory(() => RedisCubit(listenToRedis: sl()));
+  sl.registerFactory(() => RedisCubit(listenToRedis: sl(), saveChat: sl()));
 
   //UseCases
   sl.registerLazySingleton(() => GetInterests(sl()));
@@ -77,6 +82,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => PostChat(sl()));
   sl.registerLazySingleton(() => GetChats(sl()));
   sl.registerLazySingleton(() => ListenToRedis(sl()));
+  sl.registerLazySingleton(() => SaveChat(sl()));
 
   // Repository
   sl.registerLazySingleton<ChatRepository>(

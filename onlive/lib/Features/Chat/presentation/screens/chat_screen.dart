@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlive/Features/Chat/presentation/cubit/redis_cubit.dart';
+import 'package:onlive/dummy_data.dart';
+import 'package:intl/intl.dart';
+
 import '../cubit/chat_overview_cubit.dart';
 
 import '../../../../constants.dart';
@@ -127,15 +131,27 @@ class _ChatScreenState extends State<ChatScreen> {
                                     }
                                     // } else
                                     // if (state.pageStatus == PageStatus.Loaded) {
-                                    return ListView.builder(
-                                      controller: _scrollController,
-                                      shrinkWrap: true,
-                                      reverse: true,
-                                      itemCount: state.chats.length,
-                                      itemBuilder: (_, index) => ChatBubble(
-                                        chat: state.chats.reversed
-                                            .toList()[index],
-                                        // key: UniqueKey(),
+                                    return BlocListener<RedisCubit, RedisState>(
+                                      listener: (context, redis_state) {
+                                        if (redis_state is RedisNewEvents) {
+                                          print('Load Chat event triggered');
+                                          context.read<ChatBloc>().add(
+                                              LoadChat(userState.selectedChat));
+                                        }
+                                      },
+                                      child: Align(
+                                        alignment: Alignment.topCenter,
+                                        child: ListView.builder(
+                                          controller: _scrollController,
+                                          shrinkWrap: true,
+                                          reverse: true,
+                                          itemCount: state.chats.length,
+                                          itemBuilder: (_, index) => ChatBubble(
+                                            chat: state.chats.reversed
+                                                .toList()[index],
+                                            // key: UniqueKey(),
+                                          ),
+                                        ),
                                       ),
                                     );
                                   }
@@ -278,15 +294,17 @@ class ChatBubble extends StatelessWidget {
     required this.chat,
   }) : super(key: key);
 
+  bool isMe(String id) => id == '$USERID';
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment:
-          chat.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+          isMe(chat.from) ? MainAxisAlignment.end : MainAxisAlignment.start,
       crossAxisAlignment:
-          chat.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          isMe(chat.from) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        if (!chat.isMe)
+        if (!isMe(chat.from))
           CircleAvatar(
             radius: 25,
           ),
@@ -299,15 +317,18 @@ class ChatBubble extends StatelessWidget {
           constraints:
               BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
           decoration: BoxDecoration(
-            color: chat.isMe
+            color: isMe(chat.from)
                 ? Color.fromRGBO(79, 219, 146, 1)
                 : Color.fromRGBO(48, 193, 248, 1),
             borderRadius: BorderRadius.only(
-              topLeft: chat.isMe ? Radius.circular(20) : Radius.circular(0),
-              topRight: chat.isMe ? Radius.circular(0) : Radius.circular(20),
+              topLeft:
+                  isMe(chat.from) ? Radius.circular(20) : Radius.circular(0),
+              topRight:
+                  isMe(chat.from) ? Radius.circular(0) : Radius.circular(20),
               bottomRight:
-                  chat.isMe ? Radius.circular(30) : Radius.circular(20),
-              bottomLeft: chat.isMe ? Radius.circular(20) : Radius.circular(30),
+                  isMe(chat.from) ? Radius.circular(30) : Radius.circular(20),
+              bottomLeft:
+                  isMe(chat.from) ? Radius.circular(20) : Radius.circular(30),
             ),
           ),
           child: Padding(
@@ -318,7 +339,7 @@ class ChatBubble extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(0.0),
                   child: Text(
-                    '${chat.message}',
+                    '${chat.body}',
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Poppins',
@@ -328,12 +349,13 @@ class ChatBubble extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '2.33',
+                  // '${chat.timeStamp.hour % 12}.${chat.timeStamp.minute}',
+                  '${DateFormat.jm().format(chat.timeStamp)}',
                   style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 11,
                   ),
                 ),
               ],

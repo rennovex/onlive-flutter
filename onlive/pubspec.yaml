@@ -37,7 +37,7 @@ dependencies:
   google_fonts: ^2.2.0
   pixel_perfect: any
   dartz: ^0.10.1
-  google_sign_in: ^5.2.3
+  google_sign_in: ^5.2.4
   flutter_bloc: ^8.0.1
   http: ^0.13.4
   equatable: ^2.0.3
@@ -47,6 +47,7 @@ dependencies:
   salomon_bottom_bar: ^3.2.0
   font_awesome_flutter: ^9.2.0
   redis: ^3.0.0
+  intl: ^0.17.0
 
   
   

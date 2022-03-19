@@ -16,6 +16,7 @@ class ChatRepositoryImpl implements ChatRepository {
   final ChatRemoteDataSource remoteDataSource;
   late StreamSubscription streamSubscription;
   final RedisService redisService;
+  final StreamController<Chat> controller = StreamController<Chat>();
 
   ChatRepositoryImpl({
     required this.remoteDataSource,
@@ -50,9 +51,21 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Future<Either<Failure, Stream>> listenToRedis() async {
+    Stream stream = controller.stream;
     try {
-      final Stream redisStream = await redisService.pubsub.getStream();
-      return Right(redisStream);
+      streamSubscription =
+          await redisService.pubsub.getStream().listen((event) {
+        if (event[0] == 'subscribe') {
+          print('subscription successful: Listening to ${event[1]} ...');
+        }
+        if (event[0] == 'message') {
+          Chat chat = chatFromJson(event[2]);
+          chats_user_1.add(chat);
+
+          controller.add(chat);
+        }
+      });
+      return Right(stream);
     } catch (ex) {
       print(ex);
       return Left(RedisFailure());
@@ -61,5 +74,11 @@ class ChatRepositoryImpl implements ChatRepository {
 
     // return Failure();
     // emit(RedisListening());
+  }
+
+  @override
+  Future<Either<Failure, NoParams>> saveChat(Chat chat, int userId) async {
+    chats_user_1.add(chat);
+    return Right(NoParams());
   }
 }

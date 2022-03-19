@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import 'package:onlive/Features/Auth/domain/entitites/auth.dart';
+import 'package:onlive/Features/Auth/domain/usecase/logout.dart';
+
 import '../../../../core/usecases/usecase.dart';
 import '../../domain/usecase/post_login.dart';
 
@@ -8,12 +11,20 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final PostLogin postLogin;
-  AuthCubit({required this.postLogin}) : super(AuthInitial());
+  final Logout logout;
+  AuthCubit({
+    required this.postLogin,
+    required this.logout,
+  }) : super(AuthInitial());
 
   Future<void> login() async {
     emit(Loading());
     final response = await postLogin(NoParams());
-    response.fold((failure) => print(failure), (_) => emit(Authenticated()));
-    emit(Authenticated());
+    response.fold((failure) async {
+      print(failure);
+      await logout(NoParams());
+      emit(UnAuthenticated());
+    }, (auth) => emit(Authenticated(auth)));
+    // emit(Authenticated());
   }
 }

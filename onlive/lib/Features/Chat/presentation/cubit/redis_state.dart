@@ -9,7 +9,11 @@ abstract class RedisState extends Equatable {
 
 class RedisInitial extends RedisState {}
 
-class RedisNewEvents extends RedisState {}
+class RedisNewEvents extends RedisState {
+  // final Chat chat;
+
+  RedisNewEvents();
+}
 
 class RedisListening extends RedisState {}
 

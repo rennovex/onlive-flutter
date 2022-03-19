@@ -6,7 +6,6 @@ import '../../../../constants.dart';
 import '../../../../widgets/pill_toggle_button.dart';
 import '../../../../widgets/profile_icon_button.dart';
 import '../../../../widgets/gradient_button.dart';
-import 'package:pixel_perfect/pixel_perfect.dart';
 
 class OnBoarding_First extends StatelessWidget {
   const OnBoarding_First({Key? key}) : super(key: key);
@@ -61,17 +60,21 @@ class OnBoarding_First extends StatelessWidget {
                   'NickName',
                   style: kParaTextStyle,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Container(
-                    height: 30,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        // labelText: 'Enter Name Here',
-                        // hintText: 'Enter Name Here',
-                      ),
-                    ),
+                SizedBox(
+                  height: 5,
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    // label: Text('asdf'),
+                    // labelText: 'Nickname'
+                    // ,
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                    isDense: true,
+                    border: OutlineInputBorder(),
+
+                    // labelText: 'Enter Name Here',
+                    // hintText: 'Enter Name Here',
                   ),
                 ),
                 SizedBox(

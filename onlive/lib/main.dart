@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:onlive/Features/Auth/login-screen.dart';
+import 'package:onlive/Features/Registration/presentation/screens/onboarding2.dart';
+import 'package:onlive/Features/Registration/presentation/screens/onboarding3.dart';
 import 'Features/Chat/domain/entitites/chat.dart';
 import 'Features/Chat/presentation/cubit/redis_cubit.dart';
 import 'Features/Chat/presentation/screens/chat_screen.dart';
@@ -52,7 +55,13 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: HomePageFoo(),
+        home: BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, authState) {
+            if (authState is Authenticated) return HomePageFoo();
+            // if (authState is UnRegistered) return OnBoarding_First();
+            return OnBoarding_First();
+          },
+        ),
       ),
     );
   }
@@ -111,6 +120,7 @@ class _HomePageFooState extends State<HomePageFoo> {
     return BlocListener<RedisCubit, RedisState>(
       listener: (context, state) {
         if (state is RedisNewEvents) {
+          // stat
           print('New Event received');
         }
       },

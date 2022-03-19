@@ -1,3 +1,4 @@
+import 'package:onlive/dummy_data.dart';
 import 'package:redis/redis.dart';
 
 class RedisService extends RedisConnection {
@@ -14,7 +15,8 @@ class RedisService extends RedisConnection {
         'redis-16930.c100.us-east-1-4.ec2.cloud.redislabs.com', 16930);
     await cmd.send_object(["AUTH", "J83blOvjFhjWlqBCYZo27Io6iOdvJDcT"]);
     pubsub = PubSub(cmd);
-    subscribe(['61f6c11ccf62e86900d39a57']);
+    print(USERID);
+    subscribe(['$USERID']);
   }
 
   void subscribe(List<String> channels) {
