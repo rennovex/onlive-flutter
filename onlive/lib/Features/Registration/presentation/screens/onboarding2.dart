@@ -14,9 +14,14 @@ class OnBoarding_Second extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: TextButton(
-            onPressed: () {},
-            child: Image.asset('images/arrow_back.png'),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
           ),
           actions: [
             TextButton(
@@ -27,82 +32,94 @@ class OnBoarding_Second extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Let's get you up and ",
-                style: kHeaderTextStyle,
-              ),
-              Text(
-                "running! ",
-                style: kHeaderTextStyle,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                "We need know a bit about you to get your account up and running.",
-                style: kParaTextStyle,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset('images/exclamation-icon.png'),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    'None of this information will  be visible to the public.',
-                    style: kAlertTextStyle,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'NickName',
-                style: kParaTextStyle,
-              ),
-              InputBox(),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'Age',
-                style: kParaTextStyle,
-              ),
-              InputBox(),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'Email',
-                style: kParaTextStyle,
-              ),
-              InputBox(),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'Gender',
-                style: kParaTextStyle,
-              ),
-              InputBox(),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: GradientButon(
-                  text: "Next",
-                  onPressed: () {},
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Let's get you up and ",
+                  style: kHeaderTextStyle,
                 ),
-              )
-            ],
+                Text(
+                  "running! ",
+                  style: kHeaderTextStyle,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "We need know a bit about you to get your account up and running.",
+                  style: kParaTextStyle,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'images/exclamation-icon.png',
+                      scale: 0.75,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      child: Text(
+                        'None of this information will  be visible to the public.',
+                        style: kAlertTextStyle,
+                        // overflow: TextOverflow.fade,
+                        maxLines: 2,
+                        // softWrap: true,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'NickName',
+                  style: kParaTextStyle,
+                ),
+                InputBox(),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Age',
+                  style: kParaTextStyle,
+                ),
+                InputBox(),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Email',
+                  style: kParaTextStyle,
+                ),
+                InputBox(),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Gender',
+                  style: kParaTextStyle,
+                ),
+                InputBox(),
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: GradientButon(
+                    text: "Next",
+                    onPressed: () {},
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
