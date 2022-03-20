@@ -41,7 +41,20 @@ class ReguserState extends Equatable {
   });
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        nickname,
+        interest,
+        imageUrl,
+        image,
+        fullName,
+        age,
+        email,
+        gender,
+        domain,
+        colleges,
+        avatarSelectionPageState,
+        collegeSelectionPageState
+      ];
 
   ReguserState copyWith({
     String? nickname,

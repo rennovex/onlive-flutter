@@ -243,6 +243,9 @@ class _NewMessageState extends State<NewMessage> {
                         .read<ChatBloc>()
                         .add(SendMessageChanged(sendMessage: message));
                   },
+                  minLines: 1,
+                  maxLines: 5,
+                  keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
                     fillColor: Color.fromRGBO(227, 227, 227, 1),
                     filled: true,

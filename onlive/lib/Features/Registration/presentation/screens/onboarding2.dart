@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:onlive/Features/Registration/presentation/bloc/reguser_bloc.dart';
+import 'package:provider/src/provider.dart';
 
 import '../../../../constants.dart';
 import '../../../../widgets/gradient_button.dart';
@@ -81,10 +83,13 @@ class OnBoarding_Second extends StatelessWidget {
                   height: 15,
                 ),
                 Text(
-                  'NickName',
+                  'Full Name',
                   style: kParaTextStyle,
                 ),
-                InputBox(),
+                InputBox(
+                    onchangedFn: (_) => context
+                        .read<ReguserBloc>()
+                        .add(FullNameChanged(fullName: _))),
                 SizedBox(
                   height: 15,
                 ),
@@ -92,7 +97,11 @@ class OnBoarding_Second extends StatelessWidget {
                   'Age',
                   style: kParaTextStyle,
                 ),
-                InputBox(),
+                InputBox(
+                  onchangedFn: (_) => context
+                      .read<ReguserBloc>()
+                      .add(FullNameChanged(fullName: _)),
+                ),
                 SizedBox(
                   height: 15,
                 ),
@@ -100,7 +109,11 @@ class OnBoarding_Second extends StatelessWidget {
                   'Email',
                   style: kParaTextStyle,
                 ),
-                InputBox(),
+                InputBox(
+                  onchangedFn: (_) => context
+                      .read<ReguserBloc>()
+                      .add(FullNameChanged(fullName: _)),
+                ),
                 SizedBox(
                   height: 15,
                 ),
@@ -108,7 +121,11 @@ class OnBoarding_Second extends StatelessWidget {
                   'Gender',
                   style: kParaTextStyle,
                 ),
-                InputBox(),
+                InputBox(
+                  onchangedFn: (_) => context
+                      .read<ReguserBloc>()
+                      .add(FullNameChanged(fullName: _)),
+                ),
                 SizedBox(
                   height: 20,
                 ),

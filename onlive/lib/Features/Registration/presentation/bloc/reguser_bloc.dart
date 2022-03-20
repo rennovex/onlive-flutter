@@ -45,6 +45,7 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
 
   FutureOr<void> _onNicknameChanged(
       NicknameChanged event, Emitter<ReguserState> emit) {
+    print(event.nickname);
     emit(state.copyWith(nickname: event.nickname));
   }
 

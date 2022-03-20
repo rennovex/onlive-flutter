@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class InputBox extends StatelessWidget {
+  final Function onchangedFn;
+
+  const InputBox({Key? key, required this.onchangedFn}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: (fullname) => onchangedFn(fullname),
       decoration: InputDecoration(
         // label: Text('asdf'),
         // labelText: 'Nickname'

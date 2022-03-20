@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:onlive/Features/Auth/login-screen.dart';
+import 'package:onlive/Features/Registration/presentation/bloc/reguser_bloc.dart';
 import 'package:onlive/Features/Registration/presentation/screens/onboarding2.dart';
 import 'package:onlive/Features/Registration/presentation/screens/onboarding3.dart';
 import 'Features/Chat/domain/entitites/chat.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => di.sl<AuthCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => di.sl<ReguserBloc>(),
         ),
         BlocProvider(
           create: (context) => di.sl<RedisCubit>(),

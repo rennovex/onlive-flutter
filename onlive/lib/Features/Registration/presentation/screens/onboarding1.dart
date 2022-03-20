@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlive/Features/Registration/presentation/bloc/reguser_bloc.dart';
 import '../../../../Utils/constants/dummy_data.dart';
 import '../../../../constants.dart';
 import '../../../../widgets/pill_toggle_button.dart';
@@ -63,19 +65,26 @@ class OnBoarding_First extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    // label: Text('asdf'),
-                    // labelText: 'Nickname'
-                    // ,
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 5),
-                    isDense: true,
-                    border: OutlineInputBorder(),
+                BlocBuilder<ReguserBloc, ReguserState>(
+                  builder: (context, state) {
+                    return TextField(
+                      onChanged: (nickname) => context
+                          .read<ReguserBloc>()
+                          .add(NicknameChanged(nickname)),
+                      decoration: InputDecoration(
+                        // label: Text('asdf'),
+                        // labelText: 'Nickname'
+                        // ,
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                        isDense: true,
+                        border: OutlineInputBorder(),
 
-                    // labelText: 'Enter Name Here',
-                    // hintText: 'Enter Name Here',
-                  ),
+                        // labelText: 'Enter Name Here',
+                        // hintText: 'Enter Name Here',
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 10,
@@ -97,6 +106,7 @@ class OnBoarding_First extends StatelessWidget {
                   child: GradientButon(
                     onPressed: () async {
                       print('next tapped');
+                      // context.read<ReguserBloc>().add(Nick)
                       await Navigator.of(context).pushNamed('/onboarding2');
                     },
                     text: "Next",
