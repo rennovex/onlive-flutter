@@ -75,7 +75,8 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
   }
 
   FutureOr<void> _onAgeChanged(AgeChanged event, Emitter<ReguserState> emit) {
-    emit(state.copyWith(age: event.age));
+    int age = int.parse(event.age == '' ? '0' : event.age);
+    emit(state.copyWith(age: age));
   }
 
   FutureOr<void> _onGenderChanged(

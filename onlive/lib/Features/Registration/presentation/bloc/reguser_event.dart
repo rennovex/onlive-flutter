@@ -27,7 +27,7 @@ class FullNameChanged extends ReguserEvent {
 }
 
 class AgeChanged extends ReguserEvent {
-  final int age;
+  final String age;
   AgeChanged({
     required this.age,
   });

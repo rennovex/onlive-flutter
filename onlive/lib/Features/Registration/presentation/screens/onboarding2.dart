@@ -98,9 +98,8 @@ class OnBoarding_Second extends StatelessWidget {
                   style: kParaTextStyle,
                 ),
                 InputBox(
-                  onchangedFn: (_) => context
-                      .read<ReguserBloc>()
-                      .add(FullNameChanged(fullName: _)),
+                  onchangedFn: (_) =>
+                      context.read<ReguserBloc>().add(AgeChanged(age: _)),
                 ),
                 SizedBox(
                   height: 15,

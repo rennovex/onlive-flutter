@@ -52,7 +52,7 @@ class OnBoardingCollegeSelection extends StatelessWidget {
                 //     //hintText: 'Name',
                 //   ),
                 // ),
-                InputBox(),
+                // InputBox(),
               ]),
               SizedBox(
                 height: 15,

@@ -7,7 +7,7 @@ class InputBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onChanged: (fullname) => onchangedFn(fullname),
+      onChanged: (value) => onchangedFn(value),
       decoration: InputDecoration(
         // label: Text('asdf'),
         // labelText: 'Nickname'
