@@ -1,3 +1,5 @@
+import 'package:onlive/core/db/chats_database.dart';
+
 import '../../domain/entitites/chat.dart';
 import '../../../../core/usecases/usecase.dart';
 
@@ -21,8 +23,7 @@ class ChatLocalDataSourceImpl implements ChatLocalDataSource {
   }
 
   @override
-  Future<NoParams> saveChat(Chat chat) {
-    // TODO: implement saveChat
-    throw UnimplementedError();
+  Future<NoParams> saveChat(Chat chat) async {
+    final result = await ChatsDatabase.instance.create(chat);
   }
 }
