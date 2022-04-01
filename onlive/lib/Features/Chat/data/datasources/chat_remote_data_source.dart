@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:onlive/core/errors/failures.dart';
-import 'package:onlive/dummy_data.dart';
+import '../../../../core/errors/failures.dart';
+import '../../../../dummy_data.dart';
 
 import '../../domain/entitites/chat.dart';
 import '../../domain/usecase/post_chat.dart';
@@ -23,13 +23,13 @@ abstract class ChatRemoteDataSource {
 class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   final http.Client client;
   static const host =
-      'http://onlive-nodejs-env-retry.eba-a7yme2is.ap-south-1.elasticbeanstalk.com';
+      'http://onlive-nodejs-dev2.ap-south-1.elasticbeanstalk.com';
 
   ChatRemoteDataSourceImpl({required this.client});
 
   @override
   Future<Chat> postChat(Chat chat) async {
-    final url = '$host/api/users/messages/send/$TOUSERID';
+    final url = '$host/api/users/messages/send/61f6c11ccf62e86900d39a57';
     final response = await client.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json', 'x-auth-token': '$XAUTH'},
         body: jsonEncode({'body': '${chat.body}'}));

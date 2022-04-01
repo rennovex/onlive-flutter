@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import '../entitites/chat.dart';
-import '../repositories/chat_repository.dart';
+
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';
+import '../entitites/chat.dart';
+import '../repositories/chat_repository.dart';
 
 class GetChats implements UseCase<List<Chat>, Params> {
   final ChatRepository repository;

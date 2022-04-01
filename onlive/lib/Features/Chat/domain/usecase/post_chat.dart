@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import '../entitites/chat.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';
+import '../entitites/chat.dart';
 import '../repositories/chat_repository.dart';
 
 class PostChat implements UseCase<NoParams, Params> {

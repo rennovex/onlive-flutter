@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../../../constants.dart';
 import '../../../../widgets/gradient_button.dart';
-import '../../../../widgets/thick_gradient_card.dart';
 
 class OnBoardingCompletion extends StatelessWidget {
   @override

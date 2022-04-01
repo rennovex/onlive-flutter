@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:onlive/Features/Auth/login-screen.dart';
-import 'package:onlive/Features/Registration/presentation/bloc/reguser_bloc.dart';
-import 'package:onlive/Features/Registration/presentation/screens/onboarding2.dart';
-import 'package:onlive/Features/Registration/presentation/screens/onboarding3.dart';
+import 'Features/Auth/login-screen.dart';
+import 'Features/Registration/presentation/bloc/reguser_bloc.dart';
+import 'Features/Registration/presentation/screens/onboarding2.dart';
+import 'Features/Registration/presentation/screens/onboarding3.dart';
 import 'Features/Chat/domain/entitites/chat.dart';
 import 'Features/Chat/presentation/cubit/redis_cubit.dart';
 import 'Features/Chat/presentation/screens/chat_screen.dart';

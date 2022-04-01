@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:onlive/Features/Auth/data/datasources/auth_remote_data_source.dart';
-import 'package:onlive/Features/Auth/domain/entitites/auth.dart';
+import '../datasources/auth_remote_data_source.dart';
+import '../../domain/entitites/auth.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';

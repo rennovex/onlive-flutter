@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlive/Features/Chat/presentation/cubit/redis_cubit.dart';
+import '../cubit/redis_cubit.dart';
 import '../cubit/chat_overview_cubit.dart';
 
 import '../../../../injection_container.dart';

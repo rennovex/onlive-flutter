@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:onlive/Features/Chat/domain/entitites/chat.dart';
-import 'package:onlive/Features/Chat/domain/usecase/listen_to_redis.dart';
-import 'package:onlive/Features/Chat/domain/usecase/save_chat.dart';
-import 'package:onlive/core/redis/redis_service.dart';
-import 'package:onlive/core/usecases/usecase.dart';
+import '../../domain/entitites/chat.dart';
+import '../../domain/usecase/listen_to_redis.dart';
+import '../../domain/usecase/save_chat.dart';
+import '../../../../core/redis/redis_service.dart';
+import '../../../../core/usecases/usecase.dart';
 
 part 'redis_state.dart';
 

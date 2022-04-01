@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:onlive/core/db/chats_database.dart';
-import 'package:onlive/core/errors/failures.dart';
+import '../../../../core/db/chats_database.dart';
+import '../../../../core/errors/failures.dart';
 import 'dart:convert';
 
 import '../../domain/entitites/chat.dart';

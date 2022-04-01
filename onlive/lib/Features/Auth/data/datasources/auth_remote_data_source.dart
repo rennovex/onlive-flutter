@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
-import 'package:onlive/Features/Auth/domain/entitites/auth.dart';
-import 'package:onlive/core/errors/failures.dart';
-import 'package:onlive/dummy_data.dart';
-
 import 'package:http/http.dart' as http;
-import '../../../../core/usecases/usecase.dart';
+
+import '../../../../core/errors/failures.dart';
+import '../../domain/entitites/auth.dart';
 
 abstract class AuthRemoteDataSource {
   /// Calls the http://numbersapi.com/{number} endpoint.

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:onlive/Features/Registration/presentation/bloc/reguser_bloc.dart';
+import '../bloc/reguser_bloc.dart';
 import 'package:provider/src/provider.dart';
 
 import '../../../../constants.dart';

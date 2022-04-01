@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../domain/entities/interest.dart';
+
 import '../../../../Utils/constants/enum.dart';
+import '../../domain/entities/interest.dart';
 
 part 'reguser_event.dart';
 part 'reguser_state.dart';

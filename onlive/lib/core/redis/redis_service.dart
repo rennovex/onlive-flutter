@@ -1,4 +1,4 @@
-import 'package:onlive/dummy_data.dart';
+import '../../dummy_data.dart';
 import 'package:redis/redis.dart';
 
 class RedisService extends RedisConnection {

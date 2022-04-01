@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:onlive/Features/Chat/data/datasources/chat_local_data_source.dart';
-import 'package:onlive/core/redis/redis_service.dart';
+import '../datasources/chat_local_data_source.dart';
+import '../../../../core/redis/redis_service.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';
@@ -36,8 +36,8 @@ class ChatRepositoryImpl implements ChatRepository {
 
     try {
       print('save Chat Triggered');
-      await localDataSource.saveChat(chat);
       final chat_response = await remoteDataSource.postChat(chat);
+      await localDataSource.saveChat(chat_response);
     } catch (exp) {
       print(exp);
     }

@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import 'package:onlive/Features/Auth/domain/entitites/auth.dart';
-import 'package:onlive/Features/Auth/domain/usecase/logout.dart';
+import '../../domain/entitites/auth.dart';
+import '../../domain/usecase/logout.dart';
 
 import '../../../../core/usecases/usecase.dart';
 import '../../domain/usecase/post_login.dart';

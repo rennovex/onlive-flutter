@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlive/Features/Registration/presentation/bloc/reguser_bloc.dart';
+import '../bloc/reguser_bloc.dart';
 import '../../../../Utils/constants/dummy_data.dart';
 import '../../../../constants.dart';
 import '../../../../widgets/pill_toggle_button.dart';
