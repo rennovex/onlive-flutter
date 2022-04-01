@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
           builder: (context, authState) {
             if (authState is Authenticated) return HomePageFoo();
             // if (authState is UnRegistered) return OnBoarding_First();
-            return LoginScreen();
+            return HomePageFoo();
           },
         ),
       ),

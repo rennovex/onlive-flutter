@@ -14,7 +14,7 @@ class ChatsDatabase {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('chats.db');
+    _database = await _initDB('chats2.db');
     return database;
   }
 
@@ -26,21 +26,22 @@ class ChatsDatabase {
   }
 
   FutureOr<void> _createDB(Database db, int version) async {
-    final idType = 'TEXT PRIMARY KEY';
-    final textType = 'TEXT NOT NULL';
-    final integerType = 'INTEGER NOT NULL';
+    final idType = "TEXT PRIMARY KEY";
+    final textType = "TEXT NOT NULL";
+    final integerType = "INTEGER NOT NULL";
 
     await db.execute('''
-CREATE TABLE $tableChats (
-  ${ChatFields.id} $idType,
-  ${ChatFields.from} $textType,
-  ${ChatFields.to} $textType,
-  ${ChatFields.body} $textType,
-  ${ChatFields.status} $textType,
-  ${ChatFields.timeStamp} $textType,
-  ${ChatFields.v} $integerType,
-)
+CREATE TABLE $tableChats ( 
+  ${ChatFields.id} $idType, 
+  ${ChatFields.from} $textType, 
+  ${ChatFields.to} $textType, 
+  ${ChatFields.body} $textType, 
+  ${ChatFields.status} $textType, 
+  ${ChatFields.timeStamp} $textType, 
+  ${ChatFields.v} $integerType
+);
 ''');
+    print('table created.');
   }
 
   Future<Chat> create(Chat chat) async {
@@ -49,11 +50,13 @@ CREATE TABLE $tableChats (
     return chat;
   }
 
-  Future<String> readAllChats() async {
+  Future<List<dynamic>> readAllChats() async {
     final db = await instance.database;
 
-    final String result = await db.query(tableChats).toString();
+    final result = await db.query(tableChats);
+    print(result[0]);
     return result;
+    // return result.toString();
   }
 
   Future close() async {

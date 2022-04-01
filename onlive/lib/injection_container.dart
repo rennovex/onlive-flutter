@@ -6,6 +6,7 @@ import 'package:onlive/Features/Auth/data/datasources/auth_remote_data_source.da
 import 'package:onlive/Features/Auth/domain/usecase/logout.dart';
 import 'package:onlive/Features/Chat/domain/usecase/listen_to_redis.dart';
 import 'package:onlive/Features/Chat/domain/usecase/save_chat.dart';
+import 'Features/Chat/data/datasources/chat_local_data_source.dart';
 import 'Features/Chat/data/datasources/chat_remote_data_source.dart';
 import 'Features/Chat/data/repositories/chat_repository_impl.dart';
 import 'Features/Chat/domain/repositories/chat_repository.dart';
@@ -85,10 +86,15 @@ Future<void> init() async {
   sl.registerLazySingleton(() => SaveChat(sl()));
 
   // Repository
-  sl.registerLazySingleton<ChatRepository>(
-      () => ChatRepositoryImpl(remoteDataSource: sl(), redisService: sl()));
+  sl.registerLazySingleton<ChatRepository>(() => ChatRepositoryImpl(
+        remoteDataSource: sl(),
+        localDataSource: sl(),
+        redisService: sl(),
+      ));
   sl.registerLazySingleton<ChatRemoteDataSource>(
       () => ChatRemoteDataSourceImpl(client: sl()));
+  sl.registerLazySingleton<ChatLocalDataSource>(
+      () => ChatLocalDataSourceImpl());
   // sl.registerLazySingleton<ChatRemoteDataSource>(() => ChatRemoteDataSource();
 
   // Data sources

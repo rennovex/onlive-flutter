@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:onlive/core/errors/failures.dart';
 import 'package:onlive/dummy_data.dart';
 
 import '../../domain/entitites/chat.dart';
@@ -11,7 +12,7 @@ abstract class ChatRemoteDataSource {
   /// Calls the http://numbersapi.com/{number} endpoint.
   ///
   /// Throws a [ServerException] for all error codes.
-  Future<NoParams> postChat(Chat chat);
+  Future<Chat> postChat(Chat chat);
 
   /// Calls the http://numbersapi.com/random endpoint.
   ///
@@ -27,7 +28,7 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   ChatRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<NoParams> postChat(Chat chat) async {
+  Future<Chat> postChat(Chat chat) async {
     final url = '$host/api/users/messages/send/$TOUSERID';
     final response = await client.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json', 'x-auth-token': '$XAUTH'},
@@ -35,13 +36,13 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
 
     if (response.statusCode == 201) {
       print(response.body);
+      return chatFromJson(response.body);
     } else {
       print(response.statusCode);
       print(response.body);
       print(response.reasonPhrase);
 
-      // throw ServerException();
+      throw ServerFailure();
     }
-    return NoParams();
   }
 }

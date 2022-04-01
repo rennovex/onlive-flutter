@@ -4,18 +4,11 @@
 
 import 'dart:convert';
 
+final String tableChats = 'chats';
+
 Chat chatFromJson(String str) => Chat.fromJson(json.decode(str));
 
 String chatToJson(Chat data) => json.encode(data.toJson());
-
-List<Chat> chatFromListJsonString(String str) =>
-    List<Chat>.from(json.decode(str).map((x) => Chat.fromJson(x)));
-
-List<Chat> chatFromListJson(List<dynamic> js) =>
-    List<Chat>.from(js.map((x) => Chat.fromJson(x)));
-
-String chatToListJson(List<Chat> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Chat {
   Chat({
@@ -37,8 +30,8 @@ class Chat {
   int v;
 
   factory Chat.fromJson(Map<String, dynamic> json) => Chat(
-        from: json["_from"],
-        to: json["_to"],
+        from: json["from"],
+        to: json["to"],
         body: json["body"],
         status: json["status"],
         id: json["_id"],
@@ -47,8 +40,8 @@ class Chat {
       );
 
   Map<String, dynamic> toJson() => {
-        "_from": from,
-        "_to": to,
+        "from": from,
+        "to": to,
         "body": body,
         "status": status,
         "_id": id,
@@ -57,12 +50,10 @@ class Chat {
       };
 }
 
-final String tableChats = 'chats';
-
 class ChatFields {
   static final String id = '_id';
-  static final String from = '_from';
-  static final String to = '_to';
+  static final String from = 'from';
+  static final String to = 'to';
   static final String body = 'body';
   static final String status = 'status';
   static final String timeStamp = 'timeStamp';

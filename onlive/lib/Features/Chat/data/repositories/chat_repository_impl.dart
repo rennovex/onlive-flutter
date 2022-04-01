@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'package:onlive/Features/Chat/data/datasources/chat_local_data_source.dart';
 import 'package:onlive/core/redis/redis_service.dart';
 
 import '../../../../core/errors/failures.dart';
@@ -14,12 +15,15 @@ import '../datasources/chat_remote_data_source.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
   final ChatRemoteDataSource remoteDataSource;
+  final ChatLocalDataSource localDataSource;
   late StreamSubscription streamSubscription;
   final RedisService redisService;
   final StreamController<Chat> controller = StreamController<Chat>();
 
   ChatRepositoryImpl({
     required this.remoteDataSource,
+    required this.localDataSource,
+    // required this.streamSubscription,
     required this.redisService,
   });
   // final ChatLocalDataSource remoteDataSource;
@@ -28,10 +32,12 @@ class ChatRepositoryImpl implements ChatRepository {
   Future<Either<Failure, NoParams>> postChat(Chat chat, int userId) async {
     print('Post chat triggered');
 
-    chats_user_1.add(chat);
+    // chats_user_1.add(chat);
 
     try {
-      final response = await remoteDataSource.postChat(chat);
+      print('save Chat Triggered');
+      await localDataSource.saveChat(chat);
+      final chat_response = await remoteDataSource.postChat(chat);
     } catch (exp) {
       print(exp);
     }
@@ -43,10 +49,8 @@ class ChatRepositoryImpl implements ChatRepository {
   Future<Either<Failure, List<Chat>>> getChats(int userId) async {
     // TODO: implement getChats
     // throw UnimplementedError();
-    if (userId == 1)
-      return Right(chats_user_1);
-    else
-      return Right(chats_user_2);
+
+    return await localDataSource.readAllChat();
   }
 
   @override

@@ -45,16 +45,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       // emit(state.copyWith(pageStatus: PageStatus.Loading));
       postChat(PC.Params(chat: chat, userId: event.userId));
       emit(state.copyWith(pageStatus: PageStatus.Initial, sendMessage: ''));
-      // emit(state.copyWith(pageStatus: PageStatus.NewChatAdded));
-      // List<Chat> chats = [];
-      // final res = await getChats(GC.Params(userId: event.userId));
-      // res.fold((exception) => print(exception), (value) => chats = value);
-      // emit(state.copyWith(chats: chats));
-      // emit(state.copyWith(pageStatus: PageStatus.Loaded));
-      // emit(LoadChat(event.userId));
-      // emit(state.copyWith(pageStatus: PageStatus.NewChatAdded));
-      // await Future.delayed(Duration(seconds: 1));
-      // emit(state.copyWith(pageStatus: PageStatus.Loaded));
     }
     // emit(state.copyWith(chats: _chats));
   }
