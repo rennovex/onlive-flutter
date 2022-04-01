@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:onlive/core/db/chat.dart';
+import 'package:onlive/Features/Chat/domain/entitites/chat.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

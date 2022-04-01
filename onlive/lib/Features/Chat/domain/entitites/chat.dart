@@ -8,6 +8,12 @@ Chat chatFromJson(String str) => Chat.fromJson(json.decode(str));
 
 String chatToJson(Chat data) => json.encode(data.toJson());
 
+List<Chat> chatFromListJson(String str) =>
+    List<Chat>.from(json.decode(str).map((x) => Chat.fromJson(x)));
+
+String chatToListJson(List<Chat> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class Chat {
   Chat({
     required this.from,
@@ -46,4 +52,16 @@ class Chat {
         "timeStamp": timeStamp.toIso8601String(),
         "__v": v,
       };
+}
+
+final String tableChats = 'chats';
+
+class ChatFields {
+  static final String id = '_id';
+  static final String from = 'from';
+  static final String to = 'to';
+  static final String body = 'body';
+  static final String status = 'status';
+  static final String timeStamp = 'timeStamp';
+  static final String v = '__v';
 }

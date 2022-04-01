@@ -1,13 +1,15 @@
+import 'package:dartz/dartz.dart';
 import 'package:onlive/core/db/chats_database.dart';
+import 'package:onlive/core/errors/failures.dart';
 
 import '../../domain/entitites/chat.dart';
 import '../../../../core/usecases/usecase.dart';
 
 abstract class ChatLocalDataSource {
-  /// Calls the http://numbersapi.com/{number} endpoint.
+  /// Calls the Local Sqlite DataBase.
   ///
-  /// Throws a [ServerException] for all error codes.
-  Future<NoParams> saveChat(Chat chat);
+  /// Throws a [DataBaseFailure] for all error codes.
+  Future<Either<DataBaseFailure, NoParams>> saveChat(Chat chat);
 
   /// Calls the http://numbersapi.com/random endpoint.
   ///
@@ -23,7 +25,12 @@ class ChatLocalDataSourceImpl implements ChatLocalDataSource {
   }
 
   @override
-  Future<NoParams> saveChat(Chat chat) async {
-    final result = await ChatsDatabase.instance.create(chat);
+  Future<Either<DataBaseFailure, NoParams>> saveChat(Chat chat) async {
+    try {
+      await ChatsDatabase.instance.create(chat);
+      return Right(NoParams());
+    } catch (ex) {
+      return Left(DataBaseFailure());
+    }
   }
 }
