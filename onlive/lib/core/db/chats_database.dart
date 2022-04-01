@@ -49,10 +49,10 @@ CREATE TABLE $tableChats (
     return chat;
   }
 
-  Future<List<dynamic>> readAllChats() async {
+  Future<String> readAllChats() async {
     final db = await instance.database;
 
-    final result = await db.query(tableChats);
+    final String result = await db.query(tableChats).toString();
     return result;
   }
 

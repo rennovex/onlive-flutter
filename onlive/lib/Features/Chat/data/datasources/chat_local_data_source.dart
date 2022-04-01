@@ -11,10 +11,10 @@ abstract class ChatLocalDataSource {
   /// Throws a [DataBaseFailure] for all error codes.
   Future<Either<DataBaseFailure, NoParams>> saveChat(Chat chat);
 
-  /// Calls the http://numbersapi.com/random endpoint.
+  /// Calls the Local Sqlite DataBase.
   ///
-  /// Throws a [ServerException] for all error codes.
-  // Future<NumberTriviaModel> getRandomNumberTrivia();
+  /// Throws a [DataBaseFailure] for all error codes.
+  Future<Either<DataBaseFailure, List<Chat>>> readAllChat(Chat chat);
 }
 
 class ChatLocalDataSourceImpl implements ChatLocalDataSource {
@@ -29,6 +29,17 @@ class ChatLocalDataSourceImpl implements ChatLocalDataSource {
     try {
       await ChatsDatabase.instance.create(chat);
       return Right(NoParams());
+    } catch (ex) {
+      return Left(DataBaseFailure());
+    }
+  }
+
+  @override
+  Future<Either<DataBaseFailure, List<Chat>>> readAllChat(Chat chat) async {
+    try {
+      final result = await ChatsDatabase.instance.readAllChats();
+      List<Chat> chats = chatFromListJson(result);
+      return Right(chats);
     } catch (ex) {
       return Left(DataBaseFailure());
     }
