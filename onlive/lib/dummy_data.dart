@@ -3,8 +3,8 @@ import 'Features/Chat/domain/entitites/chat.dart';
 const String NeerajUSERID = '61f6c11ccf62e86900d39a57';
 const String RohanUSERID = '61f56cdbf2d672ee14404fa7';
 
-const String USERID = NeerajUSERID;
-const String TOUSERID = RohanUSERID;
+const String USERID = RohanUSERID;
+const String TOUSERID = NeerajUSERID;
 
 const String XAUTH = NeerajXAuth;
 

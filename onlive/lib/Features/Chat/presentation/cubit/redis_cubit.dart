@@ -27,9 +27,9 @@ class RedisCubit extends Cubit<RedisState> {
     final result = await listenToRedis(NoParams());
     result.fold((failure) async {
       print(failure);
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(seconds: 3));
       print('Retrying redis connection...');
-      // _listenToRedis();
+      _listenToRedis();
     }, (stream) {
       stream.listen((event) {
         emit(RedisNewEvents());

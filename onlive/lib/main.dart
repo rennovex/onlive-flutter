@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'Features/Auth/login-screen.dart';
-import 'Features/Registration/presentation/bloc/reguser_bloc.dart';
-import 'Features/Registration/presentation/screens/onboarding2.dart';
-import 'Features/Registration/presentation/screens/onboarding3.dart';
-import 'Features/Chat/domain/entitites/chat.dart';
-import 'Features/Chat/presentation/cubit/redis_cubit.dart';
-import 'Features/Chat/presentation/screens/chat_screen.dart';
-import 'Features/Registration/presentation/screens/onboarding1.dart';
-import 'Utils/app_bloc_observer.dart';
-import 'package:redis/redis.dart';
+import 'package:onlive/Features/Auth/login-screen.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'Features/Auth/presentation/cubit/auth_cubit.dart';
-import 'Features/Chat/presentation/bloc/chat_bloc.dart';
 import 'Features/Chat/presentation/cubit/chat_overview_cubit.dart';
+import 'Features/Chat/presentation/cubit/redis_cubit.dart';
 import 'Features/Chat/presentation/screens/chat_overview_screen.dart';
+import 'Features/Registration/presentation/bloc/reguser_bloc.dart';
 import 'Utils/Router/app_router.dart';
+import 'Utils/app_bloc_observer.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -63,7 +55,7 @@ class MyApp extends StatelessWidget {
           builder: (context, authState) {
             if (authState is Authenticated) return HomePageFoo();
             // if (authState is UnRegistered) return OnBoarding_First();
-            return HomePageFoo();
+            return LoginScreen();
           },
         ),
       ),

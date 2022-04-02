@@ -13,13 +13,11 @@ import '../../domain/repositories/user_repository.dart';
 class UserRepositoryImpl implements UserRepository {
   final AuthRemoteDataSource remoteDataSource;
 
-  GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: [
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-      'https://www.googleapis.com/auth/userinfo.profile'
-    ],
-  );
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: [
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+    'openid'
+  ]);
 
   final GoogleSignIn googleSignIn;
 
@@ -38,6 +36,9 @@ class UserRepositoryImpl implements UserRepository {
       // response.authentication.
       final google_auth = await response?.authentication;
       print(google_auth?.idToken);
+      print(google_auth?.accessToken);
+
+      // print(response?.)
 
       return remoteDataSource.login('${google_auth?.idToken}');
 

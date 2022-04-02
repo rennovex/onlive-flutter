@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "702366528192",
-    "project_id": "onlive-339604",
-    "storage_bucket": "onlive-339604.appspot.com"
+    "project_number": "669676703405",
+    "project_id": "onlive-app-345911",
+    "storage_bucket": "onlive-app-345911.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:702366528192:android:eaffa57aae63e8698b7325",
+        "mobilesdk_app_id": "1:669676703405:android:9cb0b2e5d126aab81e4024",
         "android_client_info": {
           "package_name": "com.onlive.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "702366528192-4pvgpuk2ggi754k1vpla87sd7teka89a.apps.googleusercontent.com",
+          "client_id": "669676703405-ltf2aq8u67bohoblnqer11nr6tah5siv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.onlive.app",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "702366528192-kso98loa1mvqunp3p1fl2j2a0hf4272r.apps.googleusercontent.com",
+          "client_id": "669676703405-3k92qj23cfq0oi803tfn6619sif8a3gr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD8KdCYsAeu18sQ9J2qNGQhUUpPHC7sv0g"
+          "current_key": "AIzaSyD9_qSfiwQSAJslJOojQLQI0dUFjuu0OnM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "702366528192-kso98loa1mvqunp3p1fl2j2a0hf4272r.apps.googleusercontent.com",
+              "client_id": "669676703405-3k92qj23cfq0oi803tfn6619sif8a3gr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

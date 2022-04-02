@@ -43,8 +43,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     if (state.sendMessage != '') {
       // _chats.add(chat);
       // emit(state.copyWith(pageStatus: PageStatus.Loading));
-      postChat(PC.Params(chat: chat, userId: event.userId));
       emit(state.copyWith(pageStatus: PageStatus.Initial, sendMessage: ''));
+      final response =
+          await postChat(PC.Params(chat: chat, userId: event.userId));
+      response.fold((l) => print(l), (r) => add(LoadChat(1)));
     }
     // emit(state.copyWith(chats: _chats));
   }
