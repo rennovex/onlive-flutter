@@ -43,6 +43,10 @@ class LoginScreen extends StatelessWidget {
           ),
           BlocBuilder<AuthCubit, AuthState>(
             builder: (context, state) {
+              if (state is AuthInitial) {
+                print('Silent Logging');
+                context.read<AuthCubit>().trySilentLogin();
+              }
               if (state is Loading) {
                 return Center(
                   child: CircularProgressIndicator(),

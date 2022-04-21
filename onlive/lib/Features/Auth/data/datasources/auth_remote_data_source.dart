@@ -10,7 +10,7 @@ abstract class AuthRemoteDataSource {
   /// Calls the http://numbersapi.com/{number} endpoint.
   ///
   /// Throws a [ServerException] for all error codes.
-  Future<Either<Failure, Auth>> login(String google_auth_token);
+  Future<Auth> login(String google_auth_token);
 
   /// Calls the http://numbersapi.com/random endpoint.
   ///
@@ -26,10 +26,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<Either<Failure, Auth>> login(String google_auth_token) async {
+  Future<Auth> login(String google_auth_token) async {
     final url = '$host/api/auth/login';
-
-    log(google_auth_token);
 
     final response = await client.post(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
@@ -40,14 +38,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       log('login successful');
       print(response.body);
       Auth auth = authFromJson(response.body);
-      return Right(auth);
+
+      return auth;
     } else {
       print(response.statusCode);
       print(response.body);
       print(response.reasonPhrase);
-      return Left(ServerFailure());
+      throw ServerFailure();
       // throw ServerException();
     }
-    // return ();
   }
 }

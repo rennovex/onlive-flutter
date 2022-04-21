@@ -11,6 +11,8 @@ class ServerFailure extends Failure {}
 
 class RedisFailure extends Failure {}
 
+class CacheFailure extends Failure {}
+
 class DataBaseFailure extends Failure {}
 
 class LoginFailure extends Failure {}

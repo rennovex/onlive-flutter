@@ -1,9 +1,13 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
+import 'package:onlive/Features/Auth/data/datasources/auth_local_data_source.dart';
+import 'package:onlive/Features/Auth/domain/usecase/silent_login.dart';
 import 'package:onlive/core/push_notifications/fcm.dart';
+import 'package:onlive/core/secure_storage/secure_storage.dart';
 import 'Features/Auth/data/datasources/auth_remote_data_source.dart';
 import 'Features/Auth/domain/usecase/logout.dart';
 import 'Features/Chat/domain/usecase/listen_to_redis.dart';
@@ -23,8 +27,8 @@ import 'core/redis/redis_service.dart';
 import 'package:redis/redis.dart';
 import 'Features/Registration/domain/usecases/get_interests.dart';
 
-import 'Features/Auth/data/repositories/user_repository_impl.dart';
-import 'Features/Auth/domain/repositories/user_repository.dart';
+import 'Features/Auth/data/repositories/auth_repository_impl.dart';
+import 'Features/Auth/domain/repositories/auth_repository.dart';
 import 'Features/Auth/domain/usecase/post_login.dart';
 import 'Features/Auth/presentation/cubit/auth_cubit.dart';
 import 'core/network/network_info.dart';
@@ -35,16 +39,17 @@ Future<void> init() async {
   //! Features - Auth
   // Bloc
   sl.registerFactory(
-    () => AuthCubit(postLogin: sl(), logout: sl()),
+    () => AuthCubit(postLogin: sl(), logout: sl(), silentLogin: sl()),
   );
 
   //UseCases
   sl.registerLazySingleton(() => PostLogin(sl()));
   sl.registerLazySingleton(() => Logout(sl()));
+  sl.registerLazySingleton(() => SilentLogin(sl()));
 
   // Repository
-  sl.registerLazySingleton<UserRepository>(
-      () => UserRepositoryImpl(sl(), sl()));
+  sl.registerLazySingleton<AuthRepository>(
+      () => UserRepositoryImpl(sl(), sl(), sl()));
 
   // Data sources
   sl.registerLazySingleton<AuthRemoteDataSource>(
@@ -52,6 +57,9 @@ Future<void> init() async {
       client: sl(),
     ),
   );
+
+  sl.registerLazySingleton<AuthLocalDataSource>(
+      () => AuthLocalDataSourceImpl(secureStorage: sl()));
 
   // sl.registerLazySingleton<PostsLocalDataSource>(
   //   () => PostsLocalDataSourceImpl(
@@ -94,7 +102,7 @@ Future<void> init() async {
         redisService: sl(),
       ));
   sl.registerLazySingleton<ChatRemoteDataSource>(
-      () => ChatRemoteDataSourceImpl(client: sl()));
+      () => ChatRemoteDataSourceImpl(client: sl(), storage: sl()));
   sl.registerLazySingleton<ChatLocalDataSource>(
       () => ChatLocalDataSourceImpl());
   // sl.registerLazySingleton<ChatRemoteDataSource>(() => ChatRemoteDataSource();
@@ -121,8 +129,9 @@ Future<void> init() async {
   );
 
   // sl.registerFactory<Fcm>(() => Fcm(sl()));
-
-  sl.registerFactory<RedisService>(() => RedisService(conn: sl()));
+  sl.registerLazySingleton<FlutterSecureStorage>(() => FlutterSecureStorage());
+  sl.registerFactory<RedisService>(
+      () => RedisService(conn: sl(), storage: sl()));
 
   //! External
   // final sharedPreferences = await SharedPreferences.getInstance();
@@ -130,6 +139,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => http.Client());
   // sl.registerLazySingleton(() => FirebaseMessaging.instance);
   sl.registerLazySingleton(() => InternetConnectionChecker());
+  sl.registerLazySingleton(() => SecureStorage(storage: sl()));
   sl.registerLazySingleton(() => RedisConnection());
   sl.registerFactory(
     () => GoogleSignIn(

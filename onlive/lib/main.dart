@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlive/Features/Auth/login-screen.dart';
+import 'package:onlive/Features/Settings/Presentation/screens/settings_screen.dart';
 import 'package:onlive/core/push_notifications/fcm.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -117,12 +118,7 @@ class _HomePageFooState extends State<HomePageFoo> {
         style: optionStyle,
       ),
     ),
-    Center(
-      child: Text(
-        'Settings',
-        style: optionStyle,
-      ),
-    ),
+    SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {

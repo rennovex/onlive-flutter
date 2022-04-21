@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:onlive/core/secure_storage/secure_storage.dart';
+
 import '../../../../core/errors/failures.dart';
 import '../../../../dummy_data.dart';
 
@@ -22,16 +24,19 @@ abstract class ChatRemoteDataSource {
 
 class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   final http.Client client;
+  final SecureStorage storage;
   static const host =
       'http://onlive-nodejs-dev2.ap-south-1.elasticbeanstalk.com';
 
-  ChatRemoteDataSourceImpl({required this.client});
+  ChatRemoteDataSourceImpl({required this.client, required this.storage});
 
   @override
   Future<Chat> postChat(Chat chat) async {
+    final String userId = await storage.readUid();
+    final String token = await storage.readToken();
     final url = '$host/api/users/messages/send/61f6c11ccf62e86900d39a57';
     final response = await client.post(Uri.parse(url),
-        headers: {'Content-Type': 'application/json', 'x-auth-token': '$XAUTH'},
+        headers: {'Content-Type': 'application/json', 'x-auth-token': token},
         body: jsonEncode({'body': '${chat.body}'}));
 
     if (response.statusCode == 201) {

@@ -1,12 +1,15 @@
+import 'package:onlive/core/secure_storage/secure_storage.dart';
+
 import '../../dummy_data.dart';
 import 'package:redis/redis.dart';
 
 class RedisService extends RedisConnection {
   final RedisConnection conn;
+  final SecureStorage storage;
   late Command cmd;
   late PubSub pubsub;
 
-  RedisService({required this.conn}) {
+  RedisService({required this.conn, required this.storage}) {
     _connect();
   }
 
@@ -15,8 +18,9 @@ class RedisService extends RedisConnection {
         'redis-16930.c100.us-east-1-4.ec2.cloud.redislabs.com', 16930);
     await cmd.send_object(["AUTH", "J83blOvjFhjWlqBCYZo27Io6iOdvJDcT"]);
     pubsub = PubSub(cmd);
-    print(USERID);
-    subscribe(['$USERID']);
+    final userId = await storage.readUid();
+    print(userId);
+    subscribe([userId]);
   }
 
   void subscribe(List<String> channels) {
@@ -29,18 +33,4 @@ class RedisService extends RedisConnection {
     conn.close();
     return super.close();
   }
-
-  //  try {
-  //   // final conn = RedisConnection();
-
-  //   final
-  //   print(cmd);
-  //   print(pubsub.toString());
-
-  //   pubsub.getStream().listen((message) {
-  //     print("message: $message");
-  //   });
-  // } catch (ex) {
-  //   print(ex);
-  // }
 }

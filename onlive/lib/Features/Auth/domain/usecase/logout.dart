@@ -3,10 +3,10 @@ import '../entitites/auth.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';
-import '../repositories/user_repository.dart';
+import '../repositories/auth_repository.dart';
 
 class Logout implements UseCase<NoParams, NoParams> {
-  final UserRepository repository;
+  final AuthRepository repository;
 
   Logout(this.repository);
 

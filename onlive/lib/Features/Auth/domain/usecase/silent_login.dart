@@ -5,13 +5,13 @@ import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../repositories/auth_repository.dart';
 
-class PostLogin implements UseCase<Auth, NoParams> {
+class SilentLogin implements UseCase<Auth, NoParams> {
   final AuthRepository repository;
 
-  PostLogin(this.repository);
+  SilentLogin(this.repository);
 
   @override
   Future<Either<Failure, Auth>> call(NoParams params) async {
-    return repository.postLogin();
+    return repository.silentLogin();
   }
 }
