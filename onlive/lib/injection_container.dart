@@ -1,7 +1,9 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
+import 'package:onlive/core/push_notifications/fcm.dart';
 import 'Features/Auth/data/datasources/auth_remote_data_source.dart';
 import 'Features/Auth/domain/usecase/logout.dart';
 import 'Features/Chat/domain/usecase/listen_to_redis.dart';
@@ -118,12 +120,15 @@ Future<void> init() async {
     ),
   );
 
+  // sl.registerFactory<Fcm>(() => Fcm(sl()));
+
   sl.registerFactory<RedisService>(() => RedisService(conn: sl()));
 
   //! External
   // final sharedPreferences = await SharedPreferences.getInstance();
   // sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());
+  // sl.registerLazySingleton(() => FirebaseMessaging.instance);
   sl.registerLazySingleton(() => InternetConnectionChecker());
   sl.registerLazySingleton(() => RedisConnection());
   sl.registerFactory(

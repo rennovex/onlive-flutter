@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -38,9 +41,32 @@ class UserRepositoryImpl implements UserRepository {
       print(google_auth?.idToken);
       print(google_auth?.accessToken);
 
-      // print(response?.)
+      final credential = GoogleAuthProvider.credential(
+        accessToken: google_auth?.accessToken,
+        idToken: google_auth?.idToken,
+      );
 
-      return remoteDataSource.login('${google_auth?.idToken}');
+      final authResult =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      final currentUser = FirebaseAuth.instance.currentUser;
+
+      String idToken = await currentUser!.getIdToken(true);
+
+      // print('idToken using print: ');
+      // print(idToken);
+
+      // print('idToken using log: ');
+      // log(idToken);
+
+      // print('idToken using custom function: ');
+      // while (idToken.length > 0) {
+      //   int initLength = (idToken.length >= 500 ? 500 : idToken.length);
+      //   print(idToken.substring(0, initLength));
+      //   int endLength = idToken.length;
+      //   idToken = idToken.substring(initLength, endLength);
+      // }
+
+      return remoteDataSource.login(idToken);
 
       // return Right(NoParams());
     } catch (ex) {

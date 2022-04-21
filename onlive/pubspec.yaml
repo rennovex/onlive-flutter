@@ -49,6 +49,9 @@ dependencies:
   redis: ^3.0.0
   intl: ^0.17.0
   sqflite: ^2.0.2
+  firebase_auth: ^3.3.8
+  firebase_core: ^1.12.0
+  firebase_messaging: ^11.2.12
 
   
   

@@ -14,12 +14,14 @@ class Auth {
     required this.nickname,
     required this.avatar,
     required this.interests,
+    required this.xAuthToken,
   });
 
   String id;
   String nickname;
   Avatar avatar;
   List<Avatar> interests;
+  String xAuthToken;
 
   factory Auth.fromJson(Map<String, dynamic> json) => Auth(
         id: json["_id"],
@@ -27,6 +29,7 @@ class Auth {
         avatar: Avatar.fromJson(json["avatar"]),
         interests:
             List<Avatar>.from(json["interests"].map((x) => Avatar.fromJson(x))),
+        xAuthToken: json["x-auth-token"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,6 +37,7 @@ class Auth {
         "nickname": nickname,
         "avatar": avatar.toJson(),
         "interests": List<dynamic>.from(interests.map((x) => x.toJson())),
+        "x-auth-token": xAuthToken,
       };
 }
 
@@ -60,7 +64,7 @@ class Avatar {
   Map<String, dynamic> toJson() => {
         "_id": id,
         "name": name,
-        "url": url == null ? null : url,
+        "url": url == null ? '' : url,
         "__v": v,
       };
 }

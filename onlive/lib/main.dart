@@ -1,6 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlive/Features/Auth/login-screen.dart';
+import 'package:onlive/core/push_notifications/fcm.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import 'Features/Auth/presentation/cubit/auth_cubit.dart';
@@ -12,9 +15,26 @@ import 'Utils/Router/app_router.dart';
 import 'Utils/app_bloc_observer.dart';
 import 'injection_container.dart' as di;
 
+Future<void> onBackgroundMessageHandler(RemoteMessage message) async {
+  print(message.data);
+  print(message.notification?.body);
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FirebaseMessaging.instance.getToken();
   await di.init();
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseMessaging.onBackgroundMessage(onBackgroundMessageHandler);
+  // di.sl<Fcm>();
+
+  FirebaseMessaging.onMessage.listen((event) {
+    print('On message triggered');
+    print(event.notification?.title);
+    print(event.notification?.body);
+  });
+  // Fcm(FirebaseMessaging.instance);
 
   BlocOverrides.runZoned(
     () {
