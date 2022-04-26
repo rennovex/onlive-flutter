@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlive/core/Global/global.dart';
 import '../cubit/redis_cubit.dart';
 import '../../../../dummy_data.dart';
 import 'package:intl/intl.dart';
@@ -297,7 +298,7 @@ class ChatBubble extends StatelessWidget {
     required this.chat,
   }) : super(key: key);
 
-  bool isMe(String id) => id == '$USERID';
+  bool isMe(String id) => id == '${Global.MY_ID}';
 
   @override
   Widget build(BuildContext context) {

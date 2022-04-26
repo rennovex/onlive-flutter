@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlive/dummy_data.dart';
 import '../cubit/redis_cubit.dart';
 import '../cubit/chat_overview_cubit.dart';
 
@@ -42,12 +43,12 @@ class ChatOverviewScreen extends StatelessWidget {
                     child: BlocBuilder<ChatOverviewCubit, ChatOverviewState>(
                       builder: (context, state) {
                         return ListView.builder(
-                          itemCount: 4,
+                          itemCount: users.length,
                           itemBuilder: (_, ind) =>
                               ChatTile(onPressed: () async {
                             context
                                 .read<ChatOverviewCubit>()
-                                .setSelectedUser(ind + 1);
+                                .setSelectedUser(users[ind]);
                             await Navigator.of(context).pushNamed('/chat');
                           }),
                         );

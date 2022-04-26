@@ -29,6 +29,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<Auth> login(String google_auth_token) async {
     final url = '$host/api/auth/login';
 
+    log(google_auth_token);
+
     final response = await client.post(Uri.parse(url), headers: {
       'Content-Type': 'application/json',
       'x-auth-google-token': google_auth_token,

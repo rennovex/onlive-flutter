@@ -6,23 +6,22 @@ import '../../../../core/usecases/usecase.dart';
 import '../entitites/chat.dart';
 import '../repositories/chat_repository.dart';
 
-class PostChat implements UseCase<NoParams, Params> {
+class ReadFromChat implements UseCase<List<Chat>, Params> {
   final ChatRepository repository;
 
-  PostChat(this.repository);
+  ReadFromChat(this.repository);
 
   @override
-  Future<Either<Failure, NoParams>> call(Params params) async {
-    return await repository.postChat(params.chat, params.userId);
+  Future<Either<Failure, List<Chat>>> call(Params params) async {
+    return await repository.readFromChat(params.userId);
   }
 }
 
 class Params extends Equatable {
-  final Chat chat;
   final String userId;
 
-  Params({required this.userId, required this.chat});
+  Params({required this.userId});
 
   @override
-  List<Object> get props => [chat];
+  List<Object> get props => [userId];
 }

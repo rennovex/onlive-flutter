@@ -14,7 +14,7 @@ abstract class ChatRemoteDataSource {
   /// Calls the http://numbersapi.com/{number} endpoint.
   ///
   /// Throws a [ServerException] for all error codes.
-  Future<Chat> postChat(Chat chat);
+  Future<Chat> postChat(Chat chat, String userId);
 
   /// Calls the http://numbersapi.com/random endpoint.
   ///
@@ -31,10 +31,9 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   ChatRemoteDataSourceImpl({required this.client, required this.storage});
 
   @override
-  Future<Chat> postChat(Chat chat) async {
-    final String userId = await storage.readUid();
+  Future<Chat> postChat(Chat chat, String userId) async {
     final String token = await storage.readToken();
-    final url = '$host/api/users/messages/send/61f6c11ccf62e86900d39a57';
+    final url = '$host/api/users/messages/send/$userId';
     final response = await client.post(Uri.parse(url),
         headers: {'Content-Type': 'application/json', 'x-auth-token': token},
         body: jsonEncode({'body': '${chat.body}'}));

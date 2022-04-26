@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:onlive/core/secure_storage/secure_storage.dart';
+
 import '../../Features/Chat/domain/entitites/chat.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -54,6 +56,19 @@ CREATE TABLE $tableChats (
     final db = await instance.database;
 
     final result = await db.query(tableChats);
+    print(result[0]);
+    return result;
+    // return result.toString();
+  }
+
+  Future<List<dynamic>> readFromChat(String userId) async {
+    final db = await instance.database;
+    // final myId = await SecureStorage()
+    print('userID: $userId');
+    List<Map> result = await db.rawQuery(
+        'SELECT * FROM $tableChats WHERE ${ChatFields.from}=? OR ${ChatFields.to}=?',
+        ['$userId', '$userId']);
+    // final result = await db.query(tableChats,where: );
     print(result[0]);
     return result;
     // return result.toString();

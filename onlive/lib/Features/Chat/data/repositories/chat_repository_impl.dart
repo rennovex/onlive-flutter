@@ -29,14 +29,14 @@ class ChatRepositoryImpl implements ChatRepository {
   // final ChatLocalDataSource remoteDataSource;
 
   @override
-  Future<Either<Failure, NoParams>> postChat(Chat chat, int userId) async {
+  Future<Either<Failure, NoParams>> postChat(Chat chat, String userId) async {
     print('Post chat triggered');
 
     // chats_user_1.add(chat);
 
     try {
       print('save Chat Triggered');
-      final chat_response = await remoteDataSource.postChat(chat);
+      final chat_response = await remoteDataSource.postChat(chat, userId);
       await localDataSource.saveChat(chat_response);
     } catch (exp) {
       print(exp);
@@ -46,7 +46,7 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<Either<Failure, List<Chat>>> getChats(int userId) async {
+  Future<Either<Failure, List<Chat>>> getChats(String userId) async {
     // TODO: implement getChats
     // throw UnimplementedError();
 
@@ -81,8 +81,13 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<Either<Failure, NoParams>> saveChat(Chat chat, int userId) async {
+  Future<Either<Failure, NoParams>> saveChat(Chat chat, String userId) async {
     chats_user_1.add(chat);
     return Right(NoParams());
+  }
+
+  @override
+  Future<Either<Failure, List<Chat>>> readFromChat(String userId) async {
+    return await localDataSource.readFromChat(userId);
   }
 }

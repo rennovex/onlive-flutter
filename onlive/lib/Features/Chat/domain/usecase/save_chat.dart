@@ -19,7 +19,7 @@ class SaveChat implements UseCase<NoParams, Params> {
 
 class Params extends Equatable {
   final Chat chat;
-  final int userId;
+  final String userId;
 
   Params({required this.userId, required this.chat});
 

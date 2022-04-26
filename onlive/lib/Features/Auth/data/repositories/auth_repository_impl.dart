@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:onlive/core/Global/global.dart';
 
 import '../datasources/auth_local_data_source.dart';
 import '../datasources/auth_remote_data_source.dart';
@@ -18,11 +19,7 @@ class UserRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
   final AuthLocalDataSource localDataSource;
 
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: [
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-    'openid'
-  ]);
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: []);
 
   final GoogleSignIn googleSignIn;
 
@@ -53,6 +50,10 @@ class UserRepositoryImpl implements AuthRepository {
 
       final res = await remoteDataSource.login(idToken);
       await localDataSource.saveToCache(res);
+
+      Global.AUTH_TOKEN = res.xAuthToken;
+      Global.MY_ID = res.id;
+
       return Right(res);
     } catch (ex) {
       print(ex);
@@ -83,6 +84,10 @@ class UserRepositoryImpl implements AuthRepository {
         print('Reading from cache');
         return Left(LoginFailure());
       }
+
+      Global.AUTH_TOKEN = cached.xAuthToken;
+      Global.MY_ID = cached.id;
+
       return Right(cached);
     } catch (ex) {
       print('exception while reading from cache' + ex.toString());

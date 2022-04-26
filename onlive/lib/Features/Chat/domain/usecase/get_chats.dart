@@ -18,7 +18,7 @@ class GetChats implements UseCase<List<Chat>, Params> {
 }
 
 class Params extends Equatable {
-  final int userId;
+  final String userId;
 
   Params({required this.userId});
 

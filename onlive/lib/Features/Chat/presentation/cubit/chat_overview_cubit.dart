@@ -4,9 +4,9 @@ import 'package:equatable/equatable.dart';
 part 'chat_overview_state.dart';
 
 class ChatOverviewCubit extends Cubit<ChatOverviewState> {
-  ChatOverviewCubit() : super(ChatOverviewState(-1));
+  ChatOverviewCubit() : super(ChatOverviewState(''));
 
-  Future<void> setSelectedUser(int userId) async {
+  Future<void> setSelectedUser(String userId) async {
     emit(ChatOverviewState(userId));
   }
 }

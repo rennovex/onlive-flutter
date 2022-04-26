@@ -6,6 +6,8 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
 import 'package:onlive/Features/Auth/data/datasources/auth_local_data_source.dart';
 import 'package:onlive/Features/Auth/domain/usecase/silent_login.dart';
+import 'package:onlive/Features/Chat/domain/usecase/read_from_chat.dart';
+import 'package:onlive/core/Global/global.dart';
 import 'package:onlive/core/push_notifications/fcm.dart';
 import 'package:onlive/core/secure_storage/secure_storage.dart';
 import 'Features/Auth/data/datasources/auth_remote_data_source.dart';
@@ -88,10 +90,12 @@ Future<void> init() async {
 
   //UseCases
   sl.registerLazySingleton(() => GetInterests(sl()));
-  sl.registerFactory(() => ChatBloc(postChat: sl(), getChats: sl()));
+  sl.registerFactory(
+      () => ChatBloc(postChat: sl(), getChats: sl(), readFromChat: sl()));
 
   sl.registerLazySingleton(() => PostChat(sl()));
   sl.registerLazySingleton(() => GetChats(sl()));
+  sl.registerLazySingleton(() => ReadFromChat(sl()));
   sl.registerLazySingleton(() => ListenToRedis(sl()));
   sl.registerLazySingleton(() => SaveChat(sl()));
 
@@ -104,7 +108,7 @@ Future<void> init() async {
   sl.registerLazySingleton<ChatRemoteDataSource>(
       () => ChatRemoteDataSourceImpl(client: sl(), storage: sl()));
   sl.registerLazySingleton<ChatLocalDataSource>(
-      () => ChatLocalDataSourceImpl());
+      () => ChatLocalDataSourceImpl(storage: sl()));
   // sl.registerLazySingleton<ChatRemoteDataSource>(() => ChatRemoteDataSource();
 
   // Data sources

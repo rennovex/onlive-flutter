@@ -18,7 +18,7 @@ class SendMessageChanged extends ChatEvent {
 }
 
 class SendMessageClicked extends ChatEvent {
-  final int userId;
+  final String userId;
 
   SendMessageClicked(this.userId);
   @override
@@ -26,7 +26,7 @@ class SendMessageClicked extends ChatEvent {
 }
 
 class LoadChat extends ChatEvent {
-  final int userId;
+  final String userId;
 
   LoadChat(this.userId);
   @override

@@ -1,7 +1,7 @@
 part of 'chat_overview_cubit.dart';
 
 class ChatOverviewState extends Equatable {
-  int selectedChat;
+  String selectedChat;
 
   ChatOverviewState(this.selectedChat);
 

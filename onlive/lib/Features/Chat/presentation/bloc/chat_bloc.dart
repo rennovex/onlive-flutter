@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:onlive/Features/Chat/domain/usecase/read_from_chat.dart' as RC;
 import '../../domain/entitites/chat.dart';
 import '../../domain/usecase/get_chats.dart' as GC;
 import '../../domain/usecase/post_chat.dart' as PC;
@@ -13,7 +14,11 @@ part 'chat_state.dart';
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final PC.PostChat postChat;
   final GC.GetChats getChats;
-  ChatBloc({required this.postChat, required this.getChats})
+  final RC.ReadFromChat readFromChat;
+  ChatBloc(
+      {required this.postChat,
+      required this.getChats,
+      required this.readFromChat})
       : super(
           ChatState(chats: [], sendMessage: '', pageStatus: PageStatus.Initial),
         ) {
@@ -46,7 +51,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(state.copyWith(pageStatus: PageStatus.Initial, sendMessage: ''));
       final response =
           await postChat(PC.Params(chat: chat, userId: event.userId));
-      response.fold((l) => print(l), (r) => add(LoadChat(1)));
+      response.fold((l) => print(l), (r) => add(LoadChat(event.userId)));
     }
     // emit(state.copyWith(chats: _chats));
   }
@@ -54,7 +59,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   FutureOr<void> _onLoadChat(LoadChat event, Emitter<ChatState> emit) async {
     emit(state.copyWith(pageStatus: PageStatus.Initial));
     List<Chat> chats = [];
-    final res = await getChats(GC.Params(userId: event.userId));
+    final res = await readFromChat(RC.Params(userId: event.userId));
     res.fold((exception) => print(exception), (value) => chats = value);
     emit(state.copyWith(chats: chats));
     emit(state.copyWith(pageStatus: PageStatus.Loaded));
