@@ -1,6 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+///
+///API
+
+const String host = 'http://onlive-nodejs-dev2.ap-south-1.elasticbeanstalk.com';
+
+///
+
 const kHeaderTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontFamily: 'Poppins',

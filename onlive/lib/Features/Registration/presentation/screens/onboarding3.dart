@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:onlive/Features/Registration/presentation/bloc/reguser_bloc.dart';
+import 'package:onlive/Utils/constants/enum.dart';
 import '../../../../constants.dart';
 import '../../../../widgets/gradient_button.dart';
 import '../../../../widgets/thick_gradient_card.dart';
 
 class OnBoarding_Third extends StatelessWidget {
+  const OnBoarding_Third({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,7 +48,12 @@ class OnBoarding_Third extends StatelessWidget {
               ),
               ThickGradientCard(
                 img: 'images/card_illustration1.png',
-                onPressed: () {},
+                onPressed: () {
+                  context
+                      .read<ReguserBloc>()
+                      .add(DomainSelected(Domain.Campus));
+                  Navigator.of(context).pushNamed('/onboarding5');
+                },
                 text: 'Onlive Campus',
                 para:
                     'Interact wity your own campus mates. Who knows who your next anynomous buddy will be?',
@@ -53,7 +63,12 @@ class OnBoarding_Third extends StatelessWidget {
               ),
               ThickGradientCard(
                 img: 'images/card_illustration2.png',
-                onPressed: () {},
+                onPressed: () {
+                  context
+                      .read<ReguserBloc>()
+                      .add(DomainSelected(Domain.Public));
+                  Navigator.of(context).pushNamed('/onboarding5');
+                },
                 text: 'Onlive Public',
                 para:
                     'Interact with anyone in the world. Make friends with different cultures and backgrounds',

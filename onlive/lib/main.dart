@@ -3,6 +3,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlive/Features/Auth/login-screen.dart';
+import 'package:onlive/Features/Questions/Presentation/screens/questions_response.dart';
+import 'package:onlive/Features/Questions/Presentation/screens/questions_screen.dart';
+import 'package:onlive/Features/Registration/presentation/screens/onboarding1.dart';
+import 'package:onlive/Features/Registration/presentation/screens/onboarding_college_selection.dart';
 import 'package:onlive/Features/Settings/Presentation/screens/settings_screen.dart';
 import 'package:onlive/core/push_notifications/fcm.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -76,7 +80,7 @@ class MyApp extends StatelessWidget {
           builder: (context, authState) {
             if (authState is Authenticated) return HomePageFoo();
             // if (authState is UnRegistered) return OnBoarding_First();
-            return LoginScreen();
+            return OnBoarding_First();
           },
         ),
       ),
@@ -112,12 +116,7 @@ class _HomePageFooState extends State<HomePageFoo> {
         style: optionStyle,
       ),
     ),
-    Center(
-      child: Text(
-        'Questions',
-        style: optionStyle,
-      ),
-    ),
+    QuestionsResponseScreen(),
     SettingsScreen(),
   ];
 

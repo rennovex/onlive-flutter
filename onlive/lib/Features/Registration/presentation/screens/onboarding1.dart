@@ -93,11 +93,23 @@ class OnBoarding_First extends StatelessWidget {
                   'Interests',
                   style: kParaTextStyle,
                 ),
-                Wrap(
-                  direction: Axis.horizontal,
-                  children: interestsDummyData
-                      .map((e) => PillToggleButton(name: e))
-                      .toList(),
+                BlocBuilder<ReguserBloc, ReguserState>(
+                  builder: (context, state) {
+                    if (state.avatarSelectionPageState == PageStatus.Initial)
+                      context.read<ReguserBloc>().add(LoadInterests());
+                    if (state.avatarSelectionPageState == PageStatus.Loading)
+                      return CircularProgressIndicator();
+
+                    return Wrap(
+                      direction: Axis.horizontal,
+                      children: state.interests
+                          .map((e) => PillToggleButton(
+                                selectedInterests: state.selectedInterests,
+                                interest: e,
+                              ))
+                          .toList(),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 15,
@@ -106,7 +118,6 @@ class OnBoarding_First extends StatelessWidget {
                   child: GradientButon(
                     onPressed: () async {
                       print('next tapped');
-                      // context.read<ReguserBloc>().add(Nick)
                       await Navigator.of(context).pushNamed('/onboarding2');
                     },
                     text: "Next",

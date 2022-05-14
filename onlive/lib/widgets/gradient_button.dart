@@ -13,14 +13,14 @@ class GradientButon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onPressed,
       child: Container(
-        constraints: BoxConstraints(maxWidth: 350.0, minHeight: 35.0),
+        constraints: BoxConstraints(minHeight: 35.0),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           gradient: kbuttonGradient,
-          //borderRadius: BorderRadius.circular(80.0),
+          borderRadius: BorderRadius.circular(5.0),
           boxShadow: [
             kLoginButtonBoxShadow,
           ],

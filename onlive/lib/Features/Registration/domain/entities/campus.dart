@@ -1,18 +1,17 @@
 // To parse this JSON data, do
 //
-//     final interest = interestFromJson(jsonString);
+//     final campus = campusFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<Interest> interestFromJson(String str) =>
-    List<Interest>.from(json.decode(str).map((x) => Interest.fromJson(x)));
+List<Campus> campusFromJson(String str) =>
+    List<Campus>.from(json.decode(str).map((x) => Campus.fromJson(x)));
 
-String interestToJson(List<Interest> data) =>
+String campusToJson(List<Campus> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Interest {
-  Interest({
+class Campus {
+  Campus({
     required this.id,
     required this.name,
     required this.v,
@@ -22,7 +21,7 @@ class Interest {
   final String name;
   final int v;
 
-  factory Interest.fromJson(Map<String, dynamic> json) => Interest(
+  factory Campus.fromJson(Map<String, dynamic> json) => Campus(
         id: json["_id"],
         name: json["name"],
         v: json["__v"],

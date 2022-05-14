@@ -56,7 +56,7 @@ class CampusSearchChanged extends ReguserEvent {
 }
 
 class CampusSelected extends ReguserEvent {
-  final String college;
+  final Campus college;
 
   CampusSelected(this.college);
 
@@ -64,17 +64,24 @@ class CampusSelected extends ReguserEvent {
   List<Object> get props => [college];
 }
 
-class InterestSelected extends ReguserEvent {
-  final interest;
+class LoadCampuses extends ReguserEvent {
+  @override
+  List<Object> get props => [];
+}
 
-  InterestSelected(this.interest);
+class InterestSelected extends ReguserEvent {
+  final Interest interest;
+
+  InterestSelected(this.interest) {
+    print(interest);
+  }
 
   @override
   List<Object> get props => [interest];
 }
 
 class DomainSelected extends ReguserEvent {
-  final domain;
+  final Domain domain;
 
   DomainSelected(this.domain);
 

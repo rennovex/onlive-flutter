@@ -4,6 +4,8 @@ import '../../../../constants.dart';
 import '../../../../widgets/gradient_button.dart';
 
 class OnBoardingCompletion extends StatelessWidget {
+  const OnBoardingCompletion({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

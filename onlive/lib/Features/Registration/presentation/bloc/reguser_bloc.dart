@@ -3,6 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import 'package:onlive/Features/Registration/domain/entities/campus.dart';
+import 'package:onlive/Features/Registration/domain/usecases/get_campus.dart';
+import 'package:onlive/Features/Registration/domain/usecases/get_interests.dart';
+import 'package:onlive/core/usecases/usecase.dart';
+
 import '../../../../Utils/constants/enum.dart';
 import '../../domain/entities/interest.dart';
 
@@ -10,24 +15,29 @@ part 'reguser_event.dart';
 part 'reguser_state.dart';
 
 class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
-  ReguserBloc()
-      : super(
+  final GetInterests getInterests;
+  final GetColleges getColleges;
+  ReguserBloc(
+    this.getInterests,
+    this.getColleges,
+  ) : super(
           ReguserState(
             nickname: '',
             age: -1,
-            interest: '',
+            selectedInterests: [],
             avatarSelectionPageState: PageStatus.Initial,
             fullName: '',
-            college: '',
+            college: Campus(id: '', name: '', v: 1),
             email: '',
             gender: Gender.Male,
-            domain: '',
+            domain: Domain.Campus,
             collegeSelectionPageState: PageStatus.Initial,
             image: '',
             imageUrl: '',
             interests: [],
             searchCampus: '',
-            colleges: [],
+            campuses: [],
+            publicProfilePageState: PageStatus.Initial,
           ),
         ) {
     // on<ReguserEvent>();
@@ -39,6 +49,7 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
     on<AgeChanged>(_onAgeChanged);
     on<GenderChanged>(_onGenderChanged);
     on<DomainSelected>(_onDomainSelected);
+    on<LoadCampuses>(_onLoadCampuses);
     on<CampusSearchChanged>(_onCampusSearchChanged);
     on<CampusSelected>(_onCampusSelected);
     on<RegistrationComplete>(_onRegistrationComplete);
@@ -52,19 +63,33 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
 
   FutureOr<void> _onInterestSelected(
       InterestSelected event, Emitter<ReguserState> emit) {
-    emit(state.copyWith(interest: event.interest));
+    emit(state.copyWith(publicProfilePageState: PageStatus.Initial));
+    List<Interest> interests = state.selectedInterests;
+
+    interests.contains(event.interest)
+        ? interests.remove(event.interest)
+        : interests.add(event.interest);
+
+    emit(state.copyWith(
+      selectedInterests: interests,
+      publicProfilePageState: PageStatus.Loaded,
+    ));
+    print(state.selectedInterests);
   }
 
   FutureOr<void> _onLoadInterests(
       LoadInterests event, Emitter<ReguserState> emit) async {
     emit(state.copyWith(avatarSelectionPageState: PageStatus.Loading));
-    // emit(state.copyWith(interest: event.interest));
-    emit(state.copyWith(avatarSelectionPageState: PageStatus.Loaded));
+    final result = await getInterests(NoParams());
+    result.fold((l) => print(l), (r) {
+      emit(state.copyWith(
+          avatarSelectionPageState: PageStatus.Loaded, interests: r));
+    });
   }
 
   FutureOr<void> _onPublicProfileComplete(
       PublicProfileComplete event, Emitter<ReguserState> emit) async {
-    if (state.interest == null || state.nickname == '')
+    if (state.selectedInterests == null || state.nickname == '')
       emit(state.copyWith(avatarSelectionPageState: PageStatus.Error));
     else
       emit(state.copyWith(avatarSelectionPageState: PageStatus.Complete));
@@ -102,6 +127,24 @@ class ReguserBloc extends Bloc<ReguserEvent, ReguserState> {
 
   FutureOr<void> _onRegistrationComplete(
       RegistrationComplete event, Emitter<ReguserState> emit) {
-    // TODO: registration complete implementation
+    //TODO: Api Call
+    print(state.nickname);
+    print(state.fullName);
+    print(state.age);
+    print(state.email);
+    print(state.gender);
+    print(state.domain);
+    print(state.college.name);
+  }
+
+  FutureOr<void> _onLoadCampuses(
+      LoadCampuses event, Emitter<ReguserState> emit) async {
+    emit(state.copyWith(collegeSelectionPageState: PageStatus.Loading));
+    final result = await getColleges(NoParams());
+    result.fold((l) => print(l), (r) {
+      print(r);
+      return emit(state.copyWith(
+          collegeSelectionPageState: PageStatus.Loaded, campuses: r));
+    });
   }
 }

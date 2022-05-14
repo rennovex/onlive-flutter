@@ -7,6 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:onlive/Features/Auth/data/datasources/auth_local_data_source.dart';
 import 'package:onlive/Features/Auth/domain/usecase/silent_login.dart';
 import 'package:onlive/Features/Chat/domain/usecase/read_from_chat.dart';
+import 'package:onlive/Features/Registration/data/repositories/registration_repository_impl.dart';
+import 'package:onlive/Features/Registration/domain/repositories/registration_repository.dart';
+import 'package:onlive/Features/Registration/domain/usecases/get_campus.dart';
 import 'package:onlive/core/Global/global.dart';
 import 'package:onlive/core/push_notifications/fcm.dart';
 import 'package:onlive/core/secure_storage/secure_storage.dart';
@@ -72,12 +75,15 @@ Future<void> init() async {
   //! Features - Registration
   // Bloc
 
-  sl.registerFactory(() => ReguserBloc());
+  sl.registerFactory(() => ReguserBloc(sl(), sl()));
 
   //UseCases
+  sl.registerLazySingleton(() => GetInterests(sl()));
+  sl.registerLazySingleton(() => GetColleges(sl()));
 
   // Repository
-  // sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(sl()));
+  sl.registerLazySingleton<RegistrationRepository>(
+      () => RegistrationRepositoryImpl(client: sl()));
 
   // Data sources
 
@@ -89,7 +95,7 @@ Future<void> init() async {
   sl.registerFactory(() => RedisCubit(listenToRedis: sl(), saveChat: sl()));
 
   //UseCases
-  sl.registerLazySingleton(() => GetInterests(sl()));
+
   sl.registerFactory(
       () => ChatBloc(postChat: sl(), getChats: sl(), readFromChat: sl()));
 
